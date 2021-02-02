@@ -1,0 +1,50 @@
+
+[iFlix]
+
+This web application will provide users with access to information
+about different movies, directors, and genres. Users will be able to sign
+up, update their personal information, and create a list of their favorite
+movies.
+
+Resource URL
+http://127.0.0.1:8000/
+
+
+
+URL Endpoints
+
+-- SEARCH, ADD, DELETE MOVIES --
+//list ALL movies
+    GET movies
+
+//get data about a single movie
+    GET movies/:title
+
+//get data about a specific genre
+    GET movies/Genre/:Name
+
+//add a movie to favorites
+    POST users/:username/movies/:movieid
+
+//remove a movie from favorites
+    DELETE users/:username/movies/:movieid
+
+//get data about a specific director
+    GET movies/Director/:Name
+
+
+-- MANAGE ACCOUNT SETTINGS --
+//add new user
+    POST users
+
+//update user
+    PUT users/:username
+
+//delete user
+    DELETE users/:username
+
+
+// NPM INSTALL PASSPORT
+npm install --save passport passport-local passport-jwt jsonwebtoken
+
+
