@@ -12,7 +12,7 @@ const Movies = Models.Movie;
 const Users = Models.User;
 
 // mongoose.connect('mongodb://localhost:27017/iFlixDB', {useNewUrlParser: true});
-mongoose.connect('mongodb+srv://iFlixDBAdmin:P0pcorns@iflixdb-npbrh.mongodb.net/iFlixDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 // middleware functions
