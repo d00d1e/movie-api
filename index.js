@@ -216,7 +216,8 @@ app.use((err, req, res, next) => {
 	next();
 });
 
-
-app.listen(8000, () => {
-  console.log('Server started on port 8000');
+// pre-configured port number in the env variable first
+const port = process.env.PORT || 8000;
+app.listen(port, '0.0.0.0',() => {
+ console.log('Server started on port ' + port);
 });
