@@ -1,8 +1,9 @@
 const express = require('express');
 const morgan = require('morgan'); //HTTP request logger middleware function
 const bodyParser = require('body-parser'); //read 'body' of HTTP requests
-const uuid = require('uuid');
-const app = express(); //variable that encapsulates Express's methods
+const cors = require('cors');
+const { check, validationResult } = require('express-validator'); //server-side validation for inputted data
+
 
 //mongoose config
 const mongoose = require('mongoose');
@@ -15,10 +16,10 @@ mongoose.connect('mongodb+srv://iFlixDBAdmin:P0pcorns@iflixdb-npbrh.mongodb.net/
 
 
 // middleware functions
+const app = express(); //variable that encapsulates Express's methods
 app.use(express.static('public')); //routes all requests for static files to 'public' folder
 app.use(morgan('common')); //request log using Morgans 'common' format
 app.use(bodyParser.json()); //stores JS object accessible through req.body
-
 
 //import auth.js (place after bodyParser)
 let auth = require('./auth')(app);
@@ -28,11 +29,26 @@ const passport = require('passport');
 require('./passport');
 
 
+// CORS
+let allowedOrigins = ['*', 'http;//localhost:8000', 'https://i-flix.herokuapp.com/'];
+app.use(cors({
+	origin: (origin, callback) => {
+		if (!origin) return callback(null, true);
+		//if specific origin isnt found on list of allowed origins
+		if(allowedOrigins.indexOf(origin) === -1) {
+			let message = 'The CORS policy for this application doesn’t allow access from origin ' + origin;
+			return callback(new Error(message), false);
+		}
+		return callback(null, true);
+	}
+}));
+
+
 //--- API Endpoints ---//
 
 // GET- default response when request hits root folder
 app.get('/', (req, res) => {
-  var responseText = "Welcome to iFlix!!";
+  let responseText = "Welcome to iFlix!!";
   res.send(responseText);
 });
 
@@ -86,15 +102,28 @@ app.get('/movies/director/:director', passport.authenticate('jwt', { session: fa
 
 // POST- add new user
 app.post('/users', (req, res) => {
+  [ //validation logic
+    check('username', 'Username cannot have fewer than 3 characters.').isLength({min: 3}),
+    check('username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+    check('password', 'Password is required').not().isEmpty(),
+    check('email', 'Email does not appear to be valid.').isEmail()
+  ], (req, res) => {
+    let errors = validationResult(req); //check validation obj for errors
+    if(!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+  }
+
+  let hashedPassword = Users.hashPassword(req.body.password);
+
   Users.findOne({ username: req.body.username })
   .then((user) => {
     if (user) {
       return res.status(400).send(req.body.username + ' already exists.');
     } else {
-      Users
-      .create({
+      Users.create({
         username: req.body.username,
-        password: req.body.password,
+        password: hashedPassword,
         email: req.body.email,
         birthday: req.body.birthday
       })
@@ -190,4 +219,4 @@ app.use((err, req, res, next) => {
 
 app.listen(8000, () => {
   console.log('Server started on port 8000');
-})
+});
