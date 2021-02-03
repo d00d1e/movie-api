@@ -1,13 +1,23 @@
 const express = require('express');
 const morgan = require('morgan'); //HTTP request logger middleware function
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser'); //read 'body' of HTTP requests
 const uuid = require('uuid');
-const app = express();
+const app = express(); //variable that encapsulates Express's methods
+
+//mongoose config
+const mongoose = require('mongoose');
+const Models = require('./models.js');
+const Movies = Models.Movie;
+const Users = Models.User;
+
+// mongoose.connect('mongodb://localhost:27017/iFlixDB', {useNewUrlParser: true});
+mongoose.connect('mongodb+srv://iFlixDBAdmin:P0pcorns@iflixdb-npbrh.mongodb.net/iFlixDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
+
 
 
 app.use(express.static('public')); //routes all requests for static files to 'public' folder
 app.use(morgan('common')); //request log using Morgans 'common' format
-app.use(bodyParser.json());
+app.use(bodyParser.json()); //stores JS object accessible through req.body
 
 
 //--- API Endpoints ---//
@@ -28,14 +38,14 @@ app.get('/movies/:title', (req, res) => {
   res.send("get single movie title")
 })
 
-// GET- return data about a specific director
-app.get('/movies/director/:Director', (req, res) => {
-  res.send("Director info");
+// GET- return data about a specific genre
+app.get('/movies/genre/:genre', (req, res) => {
+  res.send("Genre info");
 });
 
-// GET- return data about a specific genre
-app.get('/movies/genre/:Genre', (req, res) => {
-  res.send("Genre info");
+// GET- return data about a specific director
+app.get('/movies/director/:director', (req, res) => {
+  res.send("Director info");
 });
 
 // POST- allow new user to register
@@ -64,10 +74,11 @@ app.delete('/users/:username', (req, res) => {
 });
 
 
-// error handling middleware
+// error handling middleware (defined last)
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Something broke!');
+  res.status(500).send('Uh-oh! Something went wrong...');
+	next();
 });
 
 
