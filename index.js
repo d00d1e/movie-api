@@ -14,7 +14,7 @@ const Users = Models.User;
 mongoose.connect('mongodb+srv://iFlixDBAdmin:P0pcorns@iflixdb-npbrh.mongodb.net/iFlixDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
 
 
-
+// middleware functions
 app.use(express.static('public')); //routes all requests for static files to 'public' folder
 app.use(morgan('common')); //request log using Morgans 'common' format
 app.use(bodyParser.json()); //stores JS object accessible through req.body
@@ -28,49 +28,147 @@ app.get('/', (req, res) => {
   res.send(responseText);
 });
 
-// GET- return a list of all movies
+// GET- get a list of all movies
 app.get('/movies', (req, res) => {
-  res.send("List of all movies");
+  Movies.find()
+  .then((movies) => {
+    res.status(201).json(movies);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
 });
 
-// GET- return data for a single movie by title
+// GET- get data for a single movie by title
 app.get('/movies/:title', (req, res) => {
-  res.send("get single movie title")
-})
+  Movies.findOne({ Title: req.params.title })
+  .then((movie) => {
+    res.status(201).json(movie);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
+});
 
-// GET- return data about a specific genre
+// GET- get data about a specific genre
 app.get('/movies/genre/:genre', (req, res) => {
-  res.send("Genre info");
+  Movies.findOne({ 'Genre.Name': req.params.genre})
+	.then((movies) => {
+		res.status(201).json(movies.Genre);
+	})
+	.catch((err) => {
+		console.error(err);
+		res.status(500).send('Error: ' + err);
+	});
 });
 
-// GET- return data about a specific director
+// GET- get data about a specific director
 app.get('/movies/director/:director', (req, res) => {
-  res.send("Director info");
+  Movies.findOne({ "Director.Name": req.params.director})
+	.then((movies) => {
+		res.status(201).json(movies.Director);
+	})
+	.catch((err) => {
+		console.error(err);
+		res.status(500).send('Error: ' + err);
+	});
 });
 
-// POST- allow new user to register
+// POST- add new user
 app.post('/users', (req, res) => {
-  res.send('user registered')
+  Users.findOne({ username: req.body.username })
+  .then((user) => {
+    if (user) {
+      return res.status(400).send(req.body.username + ' already exists.');
+    } else {
+      Users
+      .create({
+        username: req.body.username,
+        password: req.body.password,
+        email: req.body.email,
+        birthday: req.body.birthday
+      })
+      .then((user) => { res.status(201).json(user); })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      });
+    }
+  })
+  .catch((err) => {
+    console.log(err);
+    res.status(500).send('Error: ' + err);
+  });
 });
 
-// PATCH-  allow user to update user info
-app.patch('/users/:userId', (req, res) => {
-  res.send("user info updated");
+// PUT- update user infp
+app.put('/users/:username', (req, res) => {
+  Users.findOneAndUpdate({ username: req.params.username },
+		//update fields sent by user, extracted from request body
+		{$set : {
+			username: req.body.username,
+			password: req.body.password,
+			email: req.body.email,
+			birthday: req.body.birthday
+		}},
+		{ new: true }) //return updatad document
+  .then((updatedUser) => {
+    res.json(updatedUser);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
 })
 
-// POST- allow user to add a movie to list of favorites
-app.post('/users/:username/favorites/:movieid', (req, res) => {
-  res.send("movie added to favorites");
+// POST- add a movie to list of favorites
+app.post('/users/:username/movies/:movieId', (req, res) => {
+  Users.findOneAndUpdate({ username: req.params.username },
+    { $push: { favorites: req.params.movieId } },
+    { new: true })
+  .then((movie) => {
+    res.status(201).json(movie);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
 });
 
-// DELETE- allow user to remove a movie from list of favorites
-app.delete('/users/:username/favorites/:movieid', (req, res) =>{
-  res.send("movie removed from favorites")
+// DELETE- remove a movie from list of favorites
+app.delete('/users/:username/movies/:movieId', (req, res) =>{
+  Users.findOneAndUpdate({ username: req.params.username },
+    { $pull: { favorites: req.params.movieId } },
+    { new: true })
+  .then((movie) => {
+    if(movie){
+      res.status(201).json(movie);
+    } else {
+      res.status(400).send('This movie is not in your favorites.');
+    }
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
 });
 
-// DELETE- allow existing users to deregister
+// DELETE- delete user
 app.delete('/users/:username', (req, res) => {
-  res.send('user account deleted');
+  Users.findOneAndRemove({ username: req.params.username })
+	.then((user) => {
+		if(!user){
+			res.status(400).send(req.params.username + ' was not found.');
+		} else {
+			res.status(200).send(req.params.username + ' was deleted');
+		}
+	})
+	.catch((err) => {
+		console.error(err);
+		res.status(500).send('Error: ' + err);
+	});
 });
 
 
