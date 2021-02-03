@@ -3,7 +3,7 @@ const morgan = require('morgan'); //HTTP request logger middleware function
 const bodyParser = require('body-parser'); //read 'body' of HTTP requests
 const cors = require('cors');
 const { check, validationResult } = require('express-validator'); //server-side validation for inputted data
-
+require('dotenv').config();
 
 //mongoose config
 const mongoose = require('mongoose');
@@ -13,7 +13,6 @@ const Users = Models.User;
 
 // mongoose.connect('mongodb://localhost:27017/iFlixDB', {useNewUrlParser: true});
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-
 
 // middleware functions
 const app = express(); //variable that encapsulates Express's methods
