@@ -31,15 +31,15 @@ require('./passport');
 // CORS
 let allowedOrigins = ['*', 'http;//localhost:8000', 'https://i-flix.herokuapp.com/'];
 app.use(cors({
-	origin: (origin, callback) => {
-		if (!origin) return callback(null, true);
-		//if specific origin isnt found on list of allowed origins
-		if(allowedOrigins.indexOf(origin) === -1) {
-			let message = 'The CORS policy for this application doesn’t allow access from origin ' + origin;
-			return callback(new Error(message), false);
-		}
-		return callback(null, true);
-	}
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    //if specific origin isnt found on list of allowed origins
+    if(allowedOrigins.indexOf(origin) === -1) {
+      let message = 'The CORS policy for this application doesn’t allow access from origin ' + origin;
+    return callback(new Error(message), false);
+    }
+    return callback(null, true);
+  }
 }));
 
 
@@ -78,25 +78,25 @@ app.get('/movies/:title', passport.authenticate('jwt', { session: false }), (req
 // GET- get data about a specific genre
 app.get('/movies/genre/:genre', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.findOne({ 'Genre.Name': req.params.genre})
-	.then((movies) => {
-		res.status(201).json(movies.Genre);
-	})
-	.catch((err) => {
-		console.error(err);
-		res.status(500).send('Error: ' + err);
-	});
+  .then((movies) => {
+    res.status(201).json(movies.Genre);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
 });
 
 // GET- get data about a specific director
 app.get('/movies/director/:director', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.findOne({ "Director.Name": req.params.director})
-	.then((movies) => {
-		res.status(201).json(movies.Director);
-	})
-	.catch((err) => {
-		console.error(err);
-		res.status(500).send('Error: ' + err);
-	});
+  .then((movies) => {
+    res.status(201).json(movies.Director);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
 });
 
 // POST- add new user
@@ -142,14 +142,14 @@ app.post('/users', (req, res) => {
 // PUT- update user infp
 app.put('/users/:username', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndUpdate({ username: req.params.username },
-		//update fields sent by user, extracted from request body
-		{$set : {
-			username: req.body.username,
-			password: req.body.password,
-			email: req.body.email,
-			birthday: req.body.birthday
-		}},
-		{ new: true }) //return updatad document
+    //update fields sent by user, extracted from request body
+    {$set : {
+    username: req.body.username,
+    password: req.body.password,
+    email: req.body.email,
+    birthday: req.body.birthday
+    }},
+    { new: true }) //return updatad document
   .then((updatedUser) => {
     res.json(updatedUser);
   })
@@ -194,17 +194,17 @@ app.delete('/users/:username/movies/:movieId', passport.authenticate('jwt', { se
 // DELETE- delete user
 app.delete('/users/:username', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndRemove({ username: req.params.username })
-	.then((user) => {
-		if(!user){
-			res.status(400).send(req.params.username + ' was not found.');
-		} else {
-			res.status(200).send(req.params.username + ' was deleted');
-		}
-	})
-	.catch((err) => {
-		console.error(err);
-		res.status(500).send('Error: ' + err);
-	});
+  .then((user) => {
+    if(!user){
+      res.status(400).send(req.params.username + ' was not found.');
+    } else {
+      res.status(200).send(req.params.username + ' was deleted');
+    }
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
 });
 
 
