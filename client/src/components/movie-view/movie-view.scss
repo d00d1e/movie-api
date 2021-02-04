@@ -1,0 +1,18 @@
+body {
+  height: 100vh;
+}
+
+.movie-view {
+  color: white;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.movie-view--title {
+  text-align: center;
+}
+
+.movie-view--link:hover {
+  text-decoration: none;
+}
+

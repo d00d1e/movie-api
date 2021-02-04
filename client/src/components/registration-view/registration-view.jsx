@@ -1,4 +1,11 @@
-import React from 'react'
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+
+import { Form, Button } from "react-bootstrap";
+
+import "./registration-view.scss";
+
 
 export default function RegistrationView() {
   const [username, setUsername] = useState("");
@@ -8,30 +15,81 @@ export default function RegistrationView() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const createdUser = {
+      Username: username,
+      Password: password,
+      Email: email,
+      Birthday: dob,
+    };
+
+    axios
+      .post("https://i-flix.herokuapp.com/users", createdUser)
+      .then((response) => {
+        console.log(response);
+        console.log(response.data);
+        alert("User created successfully");
+        window.open("/client", "_self");
+      })
+      .catch((e) => {
+        console.log(e.response);
+        alert("Error processing request");
+      });
   };
 
   return (
     <div className="registration-form">
       <h3>Sign Up</h3>
-      <form>
-        <label>
-          Username:
-          <input type="text" value={username} onChange={e => setUsername(e.target.value)} />
-        </label>
-        <label>
-          Password:
-          <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-        </label>
-        <label>
-          Email:
-          <input type="email" value={email} onChange={e => setEmail(e.target.value)} />
-        </label>
-        <label>
-          Date of Birth:
-          <input type="date" value={dob} onChange={e => setDob(e.target.value)} />
-        </label>
-        <button type="button" onClick={handleSubmit}>Sign Up</button>
-      </form>
+      <Form>
+        <br />
+        <Form.Group controlId="formBasicUsername">
+          <Form.Label>Username</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formBasicPassword">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formBasicEmail">
+          <Form.Label>Email address</Form.Label>
+          <Form.Control
+            type="email"
+            value={email}
+            placeholder="Enter email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formBasicDate">
+          <Form.Label>Date of Birth</Form.Label>
+          <Form.Control
+            type="date"
+            value={dob}
+            placeholder="MM/DD/YYYY"
+            onChange={(e) => setDob(e.target.value)}
+          />
+        </Form.Group>
+
+        <div className="submit-button">
+          <Button variant="primary btn-block" type="submit" onClick={handleSubmit}>Submit</Button>
+        </div>
+
+        <div className="login">
+          <h5>Have an account? <Link to={`/`}>Login</Link></h5>
+        </div>
+      </Form>
     </div>
-  )
+  );
 }

@@ -1,0 +1,50 @@
+body {
+  background: url('../../../src/images/background.jpg') no-repeat center center fixed;
+}
+
+#basic-navbar-nav {
+  text-align: right;
+}
+
+#username {
+  display: inline-block;
+  text-align: center;
+  color:darkgray;
+
+}
+
+#username span {
+  text-transform: uppercase;
+  font-style: italic;
+}
+
+.navbar-brand {
+  font-size: 5rem;
+  text-decoration: underline; 
+  opacity: 0.9;
+}
+
+.navbar-brand--link {
+  color: #cc0000;
+  text-shadow: 5px 5px 4px #424242;
+}
+
+.navbar-brand--link:hover {
+  color: #cc0000;
+}
+
+.main-view--button,
+.main-view--button:focus {
+  text-decoration: none;
+  color: white;
+}
+
+.main-view--button:hover {
+  text-decoration: none;
+  color: gray;
+  font-size: 1.1rem;
+}
+
+.main-view--login-text {
+  color: white;
+}
