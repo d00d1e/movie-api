@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+
+import MainView from './components/main-view/main-view';
 
 import './index.scss';
 
 //Main component (will eventually use all the other components)
-class IFlixApplication extends React.Component {
+class IFlixApplication extends Component {
   render() {
     return (
       <div className="iflix">
-        <div>hello</div>
+        <MainView />
       </div>
     );
   }
