@@ -17,21 +17,36 @@ export default class MainView extends Component {
   }
 
   componentDidMount() {
-    axios.get('https://i-flix.herokuapp.com/movies')
-      .then(res => {
-        this.setState({ movies: res.data });
-      })
-      .catch(err => {
-        console.log(err)
-      });
+    let accessToken = localStorage.getItem('token');
+    if (accessToken !== null) {
+      this.setState({ user: localStorage.getItem('user') });
+      this.getMovies(accessToken);
+    };
   }
 
   onMovieClick(movie) {
     this.setState({ selectedMovie: movie });
   }
 
-  onLoggedIn(user) {
-    this.setState({ user })
+  onLoggedIn(authData) {
+    this.setState({ user: authData.user.username });
+
+    localStorage.setItem('token', authData.token);
+    localStorage.setItem('user', authData.user.username);
+    this.getMovies(authData.token);
+    // console.log(authData);
+  }
+
+  getMovies(token) {
+    axios.get('https://i-flix.herokuapp.com/movies', {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    .then(response => {
+      this.setState({ movies: response.data });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   render() {
