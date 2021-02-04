@@ -29,7 +29,7 @@ require('./passport');
 
 
 // CORS
-let allowedOrigins = ['*', 'http;//localhost:8000', 'https://i-flix.herokuapp.com/'];
+let allowedOrigins = ['*', 'http;//localhost:8000', 'https://i-flix.herokuapp.com/', 'http://localhost:1234'];
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin) return callback(null, true);
