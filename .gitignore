@@ -1,3 +1,6 @@
 node_modules
 .eslintcache
 .env
+.cache
+.vscode
+.DS_Store
