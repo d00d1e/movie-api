@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 
 export default class MovieCard extends Component {
@@ -15,4 +16,3 @@ export default class MovieCard extends Component {
     )
   }
 }
-
