@@ -35,7 +35,7 @@ userSchema.statics.hashPassword = (password) => {
 
 // compares hashed pw with hashed pw stored in db
 userSchema.methods.validatePassword = function(password) {
-  return bcrypt.compareSync(password, this.Password);
+  return bcrypt.compareSync(password, this.password);
 };
 
 //model used in index.js to CRUD documents in DB
