@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route} from "react-router-dom";
+import { BrowserRouter, Route, Link } from "react-router-dom";
 import axios from 'axios';
 
 import LoginView from '../login-view/login-view';
@@ -8,7 +8,10 @@ import MovieView from '../movie-view/movie-view';
 import GenreView from '../genre-view/genre-view';
 import DirectorView from '../director-view/director-view';
 import ProfileView from '../profile-view/profile-view';
+import MoviesList from '../movies-list/movies-list';
 
+import { Navbar} from "react-bootstrap";
+import { Button } from 'react-bootstrap';
 
 import './main-view.scss';
 
@@ -17,7 +20,7 @@ export default class MainView extends Component {
   constructor() {
     super();
     this.state = {
-      movies: null,
+      movies: [],
       selectedMovie: null,
       user: null
     };
@@ -67,36 +70,63 @@ export default class MainView extends Component {
   render() {
     const { movies, selectedMovie, user } = this.state;
 
-    if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
-
     if (!movies) return <div className="main-view"/>;
 
     return (
       <BrowserRouter>
         <div className="main-view">
+          <Navbar sticky="top" expand="lg" bg="black">
+            <Navbar.Brand className="navbar-brand">
+              <Link to={`/`} className="navbar-brand--link">iFlix</Link>
+            </Navbar.Brand>
+            { user &&  <p id="username">~ Welcome, <span>{user}</span></p> }
+            <Navbar.Toggle aria-controls="basic-navbar-nav" className="navbar-dark" />
+            <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
+              {!user ? (
+                <ul>
+                  <Link to={`/`}>
+                    <Button variant="link" className="main-view--button">Login</Button>
+                  </Link>
+                  <Link to={`/register`}>
+                    <Button variant="link" className="main-view--button">Register</Button>
+                  </Link>
+                </ul>
+              ) : (
+                <ul>
+                  <Link to={`/`}>
+                    <Button variant="link" className="main-view--button" onClick={() => this.onLogout()}>Logout</Button>
+                  </Link>
+                  <Link to={`/users/`} >
+                    <Button variant="link" className="main-view--button">Account</Button>
+                  </Link>
+                </ul>
+              )}
+            </Navbar.Collapse>
+            </Navbar>
+
           <Route
-            exact
-            path="/"
-            render={() => movies.map(m => <MovieCard key={m._id} movie={m}/>)}
+            exact path="/"
+            render={() => {
+              if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+              return movies.map(m => <MovieCard key={m._id} movie={m}/>)
+            }}
           />
           <Route
             exact path="/users"
             render={() => <ProfileView movies={movies} />}
           />
           <Route
-            path="/register"
+            exact path="/register"
             render={() => <RegistrationView />}
           />
           <Route
-            exact
-            path="/movies/:movieId"
+            exact path="/movies/:movieId"
             render={({match}) => (
               <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>
             )}
           />
           <Route
-            exact
-            path="/movies/director/:director"
+            exact path="/movies/director/:director"
             render={({ match }) => {
               if (!movies) return <div className="main-view" />;
               return (
@@ -105,8 +135,7 @@ export default class MainView extends Component {
             }}
           />
           <Route
-            exact
-            path="/movies/genre/:genre"
+            exact path="/movies/genre/:genre"
             render={({ match }) => {
               if (!movies) return <div className="main-view" />;
               return (

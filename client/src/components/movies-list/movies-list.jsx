@@ -12,7 +12,7 @@ export default function MoviesList(props) {
   if (!movies) return <div className="main-view"/>;
 
   return (
-    <div className="movies-filter">
+    <div className="movies-list">
       <Container fluid>
         <Row>
           {filteredMovies.map(movie => (
