@@ -74,7 +74,7 @@ class MainView extends Component {
     if (!movies) return <div className="main-view"/>;
 
     return (
-      <BrowserRouter>
+      <BrowserRouter basename="/client">
         <div className="main-view">
           <Navbar className="navbar" sticky="top" expand="lg">
             <Navbar.Brand className="navbar-brand">

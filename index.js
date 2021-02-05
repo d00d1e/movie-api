@@ -1,3 +1,5 @@
+const path = require('path');
+
 const express = require('express');
 const morgan = require('morgan'); //HTTP request logger middleware function
 const bodyParser = require('body-parser'); //read 'body' of HTTP requests
@@ -17,8 +19,14 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 // middleware functions
 const app = express(); //variable that encapsulates Express's methods
 app.use(express.static('public')); //routes all requests for static files to 'public' folder
+app.use("/client", express.static(path.join(__dirname, "client", "dist")));
 app.use(morgan('common')); //request log using Morgans 'common' format
 app.use(bodyParser.json()); //stores JS object accessible through req.body
+
+// inform server: client-side routes handled by sending dist/index.html file
+app.get("/client/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
 
 //import auth.js (place after bodyParser)
 let auth = require('./auth')(app);
