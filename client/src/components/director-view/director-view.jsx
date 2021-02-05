@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Container from 'react-bootstrap/Container';
-import { Row, Col, Card, Button } from 'react-bootstrap';
 
+import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import './director-view.scss';
 
 export default class DirectorView extends Component {
@@ -27,7 +26,7 @@ export default class DirectorView extends Component {
             <br />
             <br />
             <Row>
-              <div >
+              <div className="text-center">
                 <Link to={`/`} className="director-view--button mx-auto">
                   <Button variant='dark link'>Back</Button>
                 </Link>

@@ -134,14 +134,13 @@ class MainView extends Component {
               return (
                 <GenreView genre={movies.find((m) => m.Genre.Name === match.params.genre).Genre} />
               );
-
             }}
           />
           <Route
             exact path="/movies/director/:director"
             render={({ match }) => {
               return (
-                <DirectorView director={movies.find((m) => m.Director === match.params.director)} />
+                <DirectorView director={movies.find((m) => m.Director === match.params.director.Director)} />
               );
             }}
           />

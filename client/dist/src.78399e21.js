@@ -53753,13 +53753,9 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _reactRouterDom = require("react-router-dom");
 
-var _Container = _interopRequireDefault(require("react-bootstrap/Container"));
-
 var _reactBootstrap = require("react-bootstrap");
 
 require("./director-view.scss");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
@@ -53803,7 +53799,7 @@ var DirectorView = /*#__PURE__*/function (_Component) {
     value: function render() {
       var director = this.props.director;
       if (!director) return null;
-      return _react.default.createElement(_Container.default, null, _react.default.createElement("div", {
+      return _react.default.createElement(_reactBootstrap.Container, null, _react.default.createElement("div", {
         className: "director-view"
       }, _react.default.createElement(_reactBootstrap.Card, {
         className: "card"
@@ -53811,7 +53807,9 @@ var DirectorView = /*#__PURE__*/function (_Component) {
         className: "text-center"
       }, _react.default.createElement("h2", null, director.Name)), _react.default.createElement("br", null), _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement(_reactBootstrap.Col, {
         className: "text-center"
-      }, _react.default.createElement("span", null, director.Bio))), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement("div", null, _react.default.createElement(_reactRouterDom.Link, {
+      }, _react.default.createElement("span", null, director.Bio))), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement("div", {
+        className: "text-center"
+      }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/",
         className: "director-view--button mx-auto"
       }, _react.default.createElement(_reactBootstrap.Button, {
@@ -53824,7 +53822,7 @@ var DirectorView = /*#__PURE__*/function (_Component) {
 }(_react.Component);
 
 exports.default = DirectorView;
-},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap/Container":"../node_modules/react-bootstrap/esm/Container.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./director-view.scss":"components/director-view/director-view.scss"}],"components/profile-view/profile-view.scss":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./director-view.scss":"components/director-view/director-view.scss"}],"components/profile-view/profile-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
@@ -54445,7 +54443,7 @@ var MainView = /*#__PURE__*/function (_Component) {
           var match = _ref3.match;
           return _react.default.createElement(_directorView.default, {
             director: movies.find(function (m) {
-              return m.Director === match.params.director;
+              return m.Director === match.params.director.Director;
             })
           });
         }

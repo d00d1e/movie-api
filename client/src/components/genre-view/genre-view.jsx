@@ -6,7 +6,7 @@ import './genre-view.scss';
 
 export default class GenreView extends Component {
   render() {
-    const { genre } = this.props;
+    const { genre  } = this.props;
 
     if (!genre) return null;
 
