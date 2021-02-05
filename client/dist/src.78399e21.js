@@ -54259,7 +54259,7 @@ var MainView = /*#__PURE__*/function (_Component) {
 
     _this = _super.call(this);
     _this.state = {
-      user: ''
+      user: null
     };
     return _this;
   }
@@ -54331,7 +54331,9 @@ var MainView = /*#__PURE__*/function (_Component) {
       if (!movies) return _react.default.createElement("div", {
         className: "main-view"
       });
-      return _react.default.createElement(_reactRouterDom.BrowserRouter, null, _react.default.createElement("div", {
+      return _react.default.createElement(_reactRouterDom.BrowserRouter, {
+        basename: "/client"
+      }, _react.default.createElement("div", {
         className: "main-view"
       }, _react.default.createElement(_reactBootstrap.Navbar, {
         className: "navbar",
@@ -54566,7 +54568,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53371" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56349" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

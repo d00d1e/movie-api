@@ -21,7 +21,7 @@ class MainView extends Component {
   constructor() {
     super();
     this.state = {
-      user: ''
+      user: null
     };
   }
 
