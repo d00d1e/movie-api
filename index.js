@@ -18,7 +18,7 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 
 // middleware functions
 const app = express(); //variable that encapsulates Express's methods
-app.use(express.static('public')); //routes all requests for static files to 'public' folder
+app.use(express.static(__dirname + 'public')); //routes all requests for static files to 'public' folder
 app.use("/client", express.static(path.join(__dirname, "client", "dist")));
 app.use(morgan('common')); //request log using Morgans 'common' format
 app.use(bodyParser.json()); //stores JS object accessible through req.body
