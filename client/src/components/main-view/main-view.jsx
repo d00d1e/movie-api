@@ -1,28 +1,27 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Link } from "react-router-dom";
+import { connect } from 'react-redux';
 import axios from 'axios';
 
+import { setMovies } from '../../actions/actions';
+
 import LoginView from '../login-view/login-view';
-import MovieCard from '../movie-card/movie-card';
+import RegistrationView from '../registration-view/registration-view';
 import MovieView from '../movie-view/movie-view';
 import GenreView from '../genre-view/genre-view';
 import DirectorView from '../director-view/director-view';
 import ProfileView from '../profile-view/profile-view';
 import MoviesList from '../movies-list/movies-list';
 
-import { Navbar} from "react-bootstrap";
-import { Button } from 'react-bootstrap';
-
+import { Navbar, Button } from "react-bootstrap";
 import './main-view.scss';
 
 
-export default class MainView extends Component {
+class MainView extends Component {
   constructor() {
     super();
     this.state = {
-      movies: [],
-      selectedMovie: null,
-      user: null
+      user: ''
     };
   }
 
@@ -60,7 +59,8 @@ export default class MainView extends Component {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(response => {
-      this.setState({ movies: response.data });
+      // this.setState({ movies: response.data });
+      this.props.setMovies(response.data);
     })
     .catch(function (error) {
       console.log(error);
@@ -68,18 +68,21 @@ export default class MainView extends Component {
   }
 
   render() {
-    const { movies, selectedMovie, user } = this.state;
+   const { movies } = this.props;
+   const { user } = this.state;
 
     if (!movies) return <div className="main-view"/>;
 
     return (
       <BrowserRouter>
         <div className="main-view">
-          <Navbar sticky="top" expand="lg" bg="black">
+          <Navbar className="navbar" sticky="top" expand="lg">
             <Navbar.Brand className="navbar-brand">
-              <Link to={`/`} className="navbar-brand--link">iFlix</Link>
+              <Link to={`/`} className="navbar-brand--link"><sup>i</sup>flix</Link>
             </Navbar.Brand>
-            { user &&  <p id="username">~ Welcome, <span>{user}</span></p> }
+            <div>
+              { user &&  <h6 id="username">~ Welcome,&nbsp;<span>{user}</span>!</h6> }
+            </div>
             <Navbar.Toggle aria-controls="basic-navbar-nav" className="navbar-dark" />
             <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
               {!user ? (
@@ -102,13 +105,13 @@ export default class MainView extends Component {
                 </ul>
               )}
             </Navbar.Collapse>
-            </Navbar>
+          </Navbar>
 
           <Route
             exact path="/"
             render={() => {
               if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
-              return movies.map(m => <MovieCard key={m._id} movie={m}/>)
+                return <MoviesList movies={movies}/>;
             }}
           />
           <Route
@@ -122,24 +125,23 @@ export default class MainView extends Component {
           <Route
             exact path="/movies/:movieId"
             render={({match}) => (
-              <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>
+              <MovieView movie={movies.find(m => m._id === match.params.movieId)} />
             )}
           />
-          <Route
-            exact path="/movies/director/:director"
+           <Route
+            exact path="/genre/:genre"
             render={({ match }) => {
-              if (!movies) return <div className="main-view" />;
               return (
-                <DirectorView director={movies.find((m) => m.Director.Name === match.params.director).Director} />
+                <GenreView genre={movies.find((m) => m.Genre.Name === match.params.genre).Genre} />
               );
+
             }}
           />
           <Route
-            exact path="/movies/genre/:genre"
+            exact path="/director/:director"
             render={({ match }) => {
-              if (!movies) return <div className="main-view" />;
               return (
-                <GenreView genre={movies.find((m) => m.Genre.Name === match.params.genre).Genre}/>
+                <DirectorView director={movies.find((m) => m.Director === match.params.director)} />
               );
             }}
           />
@@ -148,3 +150,11 @@ export default class MainView extends Component {
     );
   }
 }
+
+//allow component to subscribe to updates
+const mapStateToProps = state => {
+  return { movies: state.movies }
+}
+
+// wrap stateful component to connect to a store, HOC returns new component
+export default connect(mapStateToProps, { setMovies })(MainView);

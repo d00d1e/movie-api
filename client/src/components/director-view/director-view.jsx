@@ -6,11 +6,6 @@ import { Row, Col, Card, Button } from 'react-bootstrap';
 import './director-view.scss';
 
 export default class DirectorView extends Component {
-  constructor() {
-    super();
-    this.state = {};
-  }
-
   render() {
     const { director } = this.props;
 

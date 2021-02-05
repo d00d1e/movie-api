@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+
+import moviesApp from './reducers/reducers';
 
 import MainView from './components/main-view/main-view';
 
 import './index.scss';
 
+
+const store = createStore(moviesApp);
+
 //Main component (will eventually use all the other components)
 class IFlixApplication extends Component {
   render() {
     return (
-      <div className="iflix">
-        <MainView />
-      </div>
+      <Provider store={store}>
+        <MainView/>
+      </Provider>
     );
   }
 }

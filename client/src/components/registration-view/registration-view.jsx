@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 import { Form, Button } from "react-bootstrap";
-
 import "./registration-view.scss";
 
 

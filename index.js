@@ -162,7 +162,7 @@ app.put('/users/:username', passport.authenticate('jwt', { session: false }), (r
 // POST- add a movie to list of favorites
 app.post('/users/:username/favorites/:movieId', passport.authenticate('jwt', { session: false }), (req, res) => {
   Users.findOneAndUpdate({ username: req.params.username },
-    { $push: { favorite: req.params.movieId } },
+    { $push: { favorites: req.params.movieId } },
     { new: true })
   .then((movie) => {
     res.status(201).json(movie);

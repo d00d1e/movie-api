@@ -1,18 +1,32 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+import VisibilityFilterInput from '../visibility-filter-input/visibility-filter-input';
+import MovieCard from '../movie-card/movie-card';
+
 import { Container, Col, Row } from 'react-bootstrap';
-
-import { MovieCard } from '../movie-card/movie-card';
-
 import './movies-list.scss';
 
 
-export default function MoviesList(props) {
-  const { movies  } = props;
+const mapStateToProps = state => {
+  const { visibilityFilter } = state;
+  return { visibilityFilter };
+};
+
+function MoviesList(props) {
+  const { movies, visibilityFilter } = props;
+  let filteredMovies = movies;
+
+  if (visibilityFilter !== '') {
+    filteredMovies = movies.filter(movie => movie.Title.toLowerCase().includes(visibilityFilter.toLowerCase()));
+  }
 
   if (!movies) return <div className="main-view"/>;
 
   return (
-    <div className="movies-list">
+    <div className="movies-filter">
+      <VisibilityFilterInput visibilityFilter={visibilityFilter}/>
+      <br/>
       <Container fluid>
         <Row>
           {filteredMovies.map(movie => (
@@ -26,4 +40,4 @@ export default function MoviesList(props) {
   );
 }
 
-
+export default connect(mapStateToProps)(MoviesList);

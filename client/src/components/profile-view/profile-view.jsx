@@ -1,22 +1,19 @@
-import React from "react";
-import axios from "axios";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
-import Card from "react-bootstrap/Card";
-
+import { Container, Card, Button } from "react-bootstrap";
 import './profile-view.scss';
 
-export default class ProfileView extends React.Component {
-  constructor() {
-    super();
 
+export default class ProfileView extends Component {
+  constructor(props) {
+    super(props);
     this.state = {
-      username: null,
-      password: null,
-      email: null,
-      birthday: null,
+      username: '',
+      password: '',
+      email: '',
+      birthday: '',
       favorites: [],
       movies: [],
     };
@@ -31,7 +28,7 @@ export default class ProfileView extends React.Component {
   getUser(token) {
     const username = localStorage.getItem("user");
 
-    axios.get(`https://myflixj.herokuapp.com/users/${username}`, {
+    axios.get(`https://i-flix.herokuapp.com/users/${username}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -48,36 +45,35 @@ export default class ProfileView extends React.Component {
       });
   }
 
-  deleteFavoriteMovie(movieid) {ss
-    console.log(this.props.movies);
-    axios.delete(`https://myflixj.herokuapp.com/users/${localStorage.getItem("user")}/movies/${movieid}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      })
-      .then((res) => {
-        alert("Removed movie from favorites");
-      })
-      .catch((e) => {
-        alert("Eror removing movie: " + e);
-      });
+  deleteFavorite(movieId) {
+    // console.log(this.props.movies);
+    axios.delete(`https://i-flix.herokuapp.com/users/${localStorage.getItem("user")}/favorites/${movieId}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    })
+    .then(res => {
+      alert("Removed movie from favorites");
+    })
+    .catch(e => {
+      alert("Error removing movie: " + e);
+    });
   }
 
   deleteUser(e) {
     axios.delete(`https://myflixj.herokuapp.com/users/${localStorage.getItem("user")}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      })
-      .then((response) => {
-        alert("Account deleted");
-        localStorage.removeItem("token", "user");
-        window.open("/");
-      })
-      .catch((event) => {
-        alert("Failed to delete user");
-      }
-    );
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    })
+    .then(response => {
+      alert("Account deleted");
+      localStorage.removeItem("token", "user");
+      window.open("/");
+    })
+    .catch(e => {
+      alert("Failed to delete user");
+    });
   }
 
   render() {
-    // const favorites = this.props.movies.filter(movie => this.state.favorites.includes(movie._id));
+    const favoritesList = this.props.movies.filter((m) => this.state.favorites.includes(m._id) );
 
     return (
       <div className="profile-view">
@@ -92,16 +88,14 @@ export default class ProfileView extends React.Component {
               <Card.Text>Email: {this.state.email}</Card.Text>
               <Card.Text>Birthday: {this.state.birthday}</Card.Text>
               Favorite Movies:
-              {/* {favorites.map((movie) => (
-                <div key={movie._id} className="fav-movies-button">
-                  <Link to={`/movies/${movie._id}`}>
-                    <Button variant="link">{movie.Title}</Button>
-                  </Link>
-                  <Button variant="dark" onClick={(e) => this.deleteFavoriteMovie(movie._id)}>
-                    Remove Favorite
-                  </Button>
-                </div>
-              ))} */}
+                {favoritesList.map((movie) => (
+                  <div key={movie._id} className="fav-movies-button">
+                    <Link to={`/movies/${movie._id}`}>
+                      <Button variant="link">{movie.Title}</Button>
+                    </Link>
+                    <Button variant="dark" onClick={e => this.deleteFavorite(movie._id)}>Remove</Button>
+                  </div>
+                ))}
               <br />
               <br />
               <Link to={"/user/update"}>
@@ -109,9 +103,7 @@ export default class ProfileView extends React.Component {
                 <br />
                 <br />
               </Link>
-              <Button variant="warning" onClick={() => this.deleteUser()}>
-                Delete User
-              </Button>
+              <Button variant="warning" onClick={() => this.deleteUser()}>Delete User</Button>
               <br />
               <br />
               <Link to={`/`}>
