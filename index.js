@@ -235,6 +235,11 @@ app.use((err, req, res, next) => {
 	next();
 });
 
+// catchall handler
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/build/index.html'))
+})
+
 // pre-configured port number in the env variable first
 const port = process.env.PORT || 8000;
 app.listen(port, '0.0.0.0',() => {
