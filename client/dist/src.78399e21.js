@@ -53884,10 +53884,10 @@ var ProfileView = /*#__PURE__*/function (_Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      username: '',
-      password: '',
-      email: '',
-      birthday: '',
+      username: null,
+      password: null,
+      email: null,
+      birthday: null,
       favorites: [],
       movies: []
     };
@@ -54568,7 +54568,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56349" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63531" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -10,10 +10,10 @@ export default class ProfileView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
-      password: '',
-      email: '',
-      birthday: '',
+      username: null,
+      password: null,
+      email: null,
+      birthday: null,
       favorites: [],
       movies: [],
     };
