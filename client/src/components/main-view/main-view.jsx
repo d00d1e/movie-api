@@ -100,7 +100,7 @@ class MainView extends Component {
                     <Button variant="link" className="main-view--button" onClick={() => this.onLogout()}>Logout</Button>
                   </Link>
                   <Link to={`/users/`} >
-                    <Button variant="link" className="main-view--button">Account</Button>
+                    <Button variant="link" className="main-view--button">Profile</Button>
                   </Link>
                 </ul>
               )}
@@ -128,21 +128,19 @@ class MainView extends Component {
               <MovieView movie={movies.find(m => m._id === match.params.movieId)} />
             )}
           />
-           <Route
-            exact path="/movies/genre/:genre"
+          <Route
+            exact path="/genre/:genre"
             render={({ match }) => {
-              return (
-                <GenreView genre={movies.find((m) => m.Genre.Name === match.params.genre).Genre} />
-              );
-            }}
+              if (!movies) return <div className="main-view"/>;
+              return <GenreView genre={movies.find(m => m.Genre.Name === match.params.genre).Genre}/>}
+            }
           />
           <Route
-            exact path="/movies/director/:director"
+            exact path="/director/:director"
             render={({ match }) => {
-              return (
-                <DirectorView director={movies.find((m) => m.Director === match.params.director.Director)} />
-              );
-            }}
+              if (!movies) return <div className="main-view"/>;
+              return <DirectorView director={movies.find(m => m.Director.Name === match.params.director).Director}/>}
+            }
           />
         </div>
       </BrowserRouter>

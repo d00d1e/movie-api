@@ -40,7 +40,6 @@ export default function RegistrationView() {
     <div className="registration-form">
       <h3>Sign Up</h3>
       <Form>
-        <br />
         <Form.Group controlId="formBasicUsername">
           <Form.Label>Username</Form.Label>
           <Form.Control

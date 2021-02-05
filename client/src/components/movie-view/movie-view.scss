@@ -3,6 +3,7 @@
   align-items: center;
   justify-content: center;
   height: 90vh;
+  width: 100%;
   margin: 0 auto;
   padding: 3rem 0;
 }
@@ -12,8 +13,8 @@
 }
 
 .movie-view--title {
+  color: white;
   margin-bottom: 4rem;
-  // text-align: center;
 }
 
 .movie-view--description {

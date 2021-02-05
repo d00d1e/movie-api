@@ -45,21 +45,21 @@ export default class ProfileView extends Component {
       });
   }
 
-  deleteFavorite(movieId) {
-    // console.log(this.props.movies);
-    axios.delete(`https://i-flix.herokuapp.com/users/${localStorage.getItem("user")}/favorites/${movieId}`, {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    })
-    .then(res => {
-      alert("Removed movie from favorites");
-    })
-    .catch(e => {
-      alert("Error removing movie: " + e);
-    });
-  }
+  // deleteFavorite(movieId) {
+  //   // console.log(this.props.movies);
+  //   axios.delete(`https://i-flix.herokuapp.com/users/${localStorage.getItem("user")}/favorites/${movieId}`, {
+  //     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+  //   })
+  //   .then(res => {
+  //     alert("Removed movie from favorites");
+  //   })
+  //   .catch(e => {
+  //     alert("Error removing movie: " + e);
+  //   });
+  // }
 
   deleteUser(e) {
-    axios.delete(`https://myflixj.herokuapp.com/users/${localStorage.getItem("user")}`, {
+    axios.delete(`https://i-flix.herokuapp.com/users/${localStorage.getItem("user")}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     })
     .then(response => {
@@ -73,21 +73,19 @@ export default class ProfileView extends Component {
   }
 
   render() {
-    const favoritesList = this.props.movies.filter((m) => this.state.favorites.includes(m._id) );
+    // const favoritesList = this.props.movies.filter((m) => this.state.favorites.includes(m._id) );
+    const { username, email, birthday } = this.state;
 
     return (
-      <div className="profile-view">
-        <Container>
-          <br />
-          <br />
-          <h3>My Profile</h3>
-          <br />
+      <Container>
+        <div className="profile-view">
           <Card>
+            <h3 className="text-center pt-0">My Profile</h3>
             <Card.Body>
-              <Card.Text>Username: {this.state.username}</Card.Text>
-              <Card.Text>Email: {this.state.email}</Card.Text>
-              <Card.Text>Birthday: {this.state.birthday}</Card.Text>
-              Favorite Movies:
+              <Card.Text>Username:&nbsp; {username}</Card.Text>
+              <Card.Text>Email:&nbsp; {email}</Card.Text>
+              <Card.Text>Birthday:&nbsp; {birthday}</Card.Text>
+              {/* Favorite Movies:
                 {favoritesList.map((movie) => (
                   <div key={movie._id} className="fav-movies-button">
                     <Link to={`/movies/${movie._id}`}>
@@ -95,25 +93,20 @@ export default class ProfileView extends Component {
                     </Link>
                     <Button variant="dark" onClick={e => this.deleteFavorite(movie._id)}>Remove</Button>
                   </div>
-                ))}
-              <br />
-              <br />
-              <Link to={"/user/update"}>
-                <Button variant="dark">Update Profile</Button>
-                <br />
-                <br />
-              </Link>
-              <Button variant="warning" onClick={() => this.deleteUser()}>Delete User</Button>
-              <br />
-              <br />
-              <Link to={`/`}>
-                <Button variant="dark">Back</Button>
-              </Link>
+                ))} */}
+              <div className="profile-view--btns pt-4">
+                {/* <Link to={"/user/update"}>
+                  <Button variant="dark">Update Profile</Button>
+                </Link> */}
+                <Link to={`/`}>
+                  <Button variant="dark">Back</Button>
+                </Link>
+                <Button variant="warning" onClick={() => this.deleteUser()}>Delete User</Button>
+              </div>
             </Card.Body>
           </Card>
-
-        </Container>
-      </div>
+        </div>
+      </Container>
     );
   }
 }

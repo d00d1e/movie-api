@@ -12,7 +12,7 @@ export default class MovieCard extends Component {
 
 		return (
 			<div className="movie-card h-100">
-				<Card style={{ minWidth: '16rem'}}>
+				<Card className="movie-card--card" style={{ minWidth: '16rem'}}>
 					<Link to={`/movies/${movie._id}`}>
 						<Card.Img variant="top" src={movie.imageUrl} className="movie-card--image" />
 					</Link>

@@ -1,12 +1,15 @@
 .genre-view {
   color: white;
-  padding-top: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  width: 100%;
+  margin: 0 auto;
 }
 
-.card {
+.genre-view--card {
   background-color: black;
+  height: auto;
+  padding: 3rem;
 }
-
-// .genre-view--button {
-//   text-align: center;
-// }

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Row, Col, Card, Button, Container } from 'react-bootstrap';
 
+import { Row, Col, Card, Button, Container } from 'react-bootstrap';
 import './genre-view.scss';
+
 
 export default class GenreView extends Component {
   render() {
@@ -13,25 +14,20 @@ export default class GenreView extends Component {
     return (
       <Container>
         <div className='genre-view'>
-          <Card className="card">
-            <Card.Header className='text-center mb-2'>
+          <Card className="genre-view--card">
+            <Card.Header className='text-center'>
               <h2>{genre.Name}</h2>
             </Card.Header>
-            <br />
             <Row>
               <Col className='text-center'>
                 <span>{genre.Description}</span>
               </Col>
             </Row>
-            <br />
-            <br />
-            <Row className="genre-view--button">
+            <div className="text-center pt-4">
               <Link to={`/`}>
-                <Button variant='dark'>Back</Button>
+                <Button variant="dark">Back</Button>
               </Link>
-            </Row>
-            <br />
-            <br />
+            </div>
           </Card>
         </div>
       </Container>

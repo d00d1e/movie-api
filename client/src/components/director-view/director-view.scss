@@ -1,13 +1,15 @@
 .director-view {
   color: white;
-  padding-top: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  width: 100%;
+  margin: 0 auto;
 }
 
-.card {
+.director-view--card {
   background-color: black;
-  color: white;
+  height: auto;
+  padding: 3rem;
 }
-
-// .director-view--button {
-
-// }

@@ -32,7 +32,6 @@ export default function LoginView(props) {
     <div className="login-form">
       <h3>Login</h3>
       <Form>
-        <br />
         <Form.Group controlId="formBasicUsername">
           <Form.Label>Username</Form.Label>
           <Form.Control
