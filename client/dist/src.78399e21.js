@@ -54303,7 +54303,7 @@ var MainView = /*#__PURE__*/function (_Component) {
       });
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      window.open("/", "_self");
+      window.open("/client", "_self");
     }
   }, {
     key: "getMovies",
