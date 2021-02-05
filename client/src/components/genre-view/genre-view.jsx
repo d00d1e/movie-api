@@ -5,12 +5,6 @@ import { Row, Col, Card, Button, Container } from 'react-bootstrap';
 import './genre-view.scss';
 
 export default class GenreView extends Component {
-  constructor() {
-    super();
-
-    this.state = {};
-  }
-
   render() {
     const { genre } = this.props;
 
@@ -20,7 +14,7 @@ export default class GenreView extends Component {
       <Container>
         <div className='genre-view'>
           <Card className="card">
-            <Card.Header className='text-center'>
+            <Card.Header className='text-center mb-2'>
               <h2>{genre.Name}</h2>
             </Card.Header>
             <br />
@@ -31,9 +25,9 @@ export default class GenreView extends Component {
             </Row>
             <br />
             <br />
-            <Row>
+            <Row className="genre-view--button">
               <Link to={`/`}>
-                <Button variant='dark' className="genre-view--button">Back</Button>
+                <Button variant='dark'>Back</Button>
               </Link>
             </Row>
             <br />

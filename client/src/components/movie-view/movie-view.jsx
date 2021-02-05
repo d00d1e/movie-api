@@ -12,7 +12,7 @@ export default class MovieView extends Component {
     if(!movie) return null;
 
     return (
-      <div className="movie-view">
+      <div className="movie-view row">
         <Media className="align-items-center justify-content-center ">
           <img className="m-5" alt="movie poster" src={movie.imageUrl}/>
           <Media.Body className="mr-5">

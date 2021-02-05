@@ -53610,7 +53610,7 @@ var MovieView = /*#__PURE__*/function (_Component) {
       var movie = this.props.movie;
       if (!movie) return null;
       return _react.default.createElement("div", {
-        className: "movie-view"
+        className: "movie-view row"
       }, _react.default.createElement(_reactBootstrap.Media, {
         className: "align-items-center justify-content-center "
       }, _react.default.createElement("img", {
@@ -53704,13 +53704,9 @@ var GenreView = /*#__PURE__*/function (_Component) {
   var _super = _createSuper(GenreView);
 
   function GenreView() {
-    var _this;
-
     _classCallCheck(this, GenreView);
 
-    _this = _super.call(this);
-    _this.state = {};
-    return _this;
+    return _super.apply(this, arguments);
   }
 
   _createClass(GenreView, [{
@@ -53723,14 +53719,15 @@ var GenreView = /*#__PURE__*/function (_Component) {
       }, _react.default.createElement(_reactBootstrap.Card, {
         className: "card"
       }, _react.default.createElement(_reactBootstrap.Card.Header, {
-        className: "text-center"
+        className: "text-center mb-2"
       }, _react.default.createElement("h2", null, genre.Name)), _react.default.createElement("br", null), _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement(_reactBootstrap.Col, {
         className: "text-center"
-      }, _react.default.createElement("span", null, genre.Description))), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement(_reactBootstrap.Row, null, _react.default.createElement(_reactRouterDom.Link, {
+      }, _react.default.createElement("span", null, genre.Description))), _react.default.createElement("br", null), _react.default.createElement("br", null), _react.default.createElement(_reactBootstrap.Row, {
+        className: "genre-view--button"
+      }, _react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, _react.default.createElement(_reactBootstrap.Button, {
-        variant: "dark",
-        className: "genre-view--button"
+        variant: "dark"
       }, "Back"))), _react.default.createElement("br", null), _react.default.createElement("br", null))));
     }
   }]);
@@ -54363,7 +54360,7 @@ var MainView = /*#__PURE__*/function (_Component) {
         className: "navbar-brand--link"
       }, _react.default.createElement("sup", null, "i"), "flix")), _react.default.createElement("div", null, user && _react.default.createElement("h6", {
         id: "username"
-      }, "~ Welcome,\xA0", _react.default.createElement("span", null, user), "!")), _react.default.createElement(_reactBootstrap.Navbar.Toggle, {
+      }, "Welcome,\xA0", _react.default.createElement("span", null, user), "!")), _react.default.createElement(_reactBootstrap.Navbar.Toggle, {
         "aria-controls": "basic-navbar-nav",
         className: "navbar-dark"
       }), _react.default.createElement(_reactBootstrap.Navbar.Collapse, {
@@ -54432,7 +54429,7 @@ var MainView = /*#__PURE__*/function (_Component) {
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
-        path: "/genre/:genre",
+        path: "/movies/genre/:genre",
         render: function render(_ref2) {
           var match = _ref2.match;
           return _react.default.createElement(_genreView.default, {
@@ -54443,7 +54440,7 @@ var MainView = /*#__PURE__*/function (_Component) {
         }
       }), _react.default.createElement(_reactRouterDom.Route, {
         exact: true,
-        path: "/director/:director",
+        path: "/movies/director/:director",
         render: function render(_ref3) {
           var match = _ref3.match;
           return _react.default.createElement(_directorView.default, {

@@ -81,7 +81,7 @@ class MainView extends Component {
               <Link to={`/`} className="navbar-brand--link"><sup>i</sup>flix</Link>
             </Navbar.Brand>
             <div>
-              { user &&  <h6 id="username">~ Welcome,&nbsp;<span>{user}</span>!</h6> }
+              { user &&  <h6 id="username">Welcome,&nbsp;<span>{user}</span>!</h6> }
             </div>
             <Navbar.Toggle aria-controls="basic-navbar-nav" className="navbar-dark" />
             <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
@@ -129,7 +129,7 @@ class MainView extends Component {
             )}
           />
            <Route
-            exact path="/genre/:genre"
+            exact path="/movies/genre/:genre"
             render={({ match }) => {
               return (
                 <GenreView genre={movies.find((m) => m.Genre.Name === match.params.genre).Genre} />
@@ -138,7 +138,7 @@ class MainView extends Component {
             }}
           />
           <Route
-            exact path="/director/:director"
+            exact path="/movies/director/:director"
             render={({ match }) => {
               return (
                 <DirectorView director={movies.find((m) => m.Director === match.params.director)} />
