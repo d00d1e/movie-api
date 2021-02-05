@@ -101,14 +101,14 @@ app.get('/director/:director', passport.authenticate('jwt', { session: false }),
 
 // GET- get a user by username
 app.get('/users/:username', passport.authenticate('jwt', {session: false}), (req, res) =>{
-	Users.findOne({ username: req.params.username })
-	.then((user) => {
-		res.status(200).json(user);
-	})
-	.catch((err) => {
-		console.error(err);
-		res.status(500).send('Error: ' + err);
-	});
+  Users.findOne({ username: req.params.username })
+  .then((user) => {
+    res.status(200).json(user);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
 });
 
 // POST- add new user
