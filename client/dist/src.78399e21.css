@@ -221,6 +221,7 @@ body {
   padding: 0;
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
+  overscroll-behavior: none;
 }
 
 /*# sourceMappingURL=/src.78399e21.css.map */
