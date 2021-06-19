@@ -73,28 +73,30 @@ export default class ProfileView extends Component {
   }
 
   render() {
-    // const favoritesList = this.props.movies.filter((m) => this.state.favorites.includes(m._id) );
-    const { username, email, birthday } = this.state;
+    const { username, email, birthday, movies, favorites } = this.state;
+    // const favoritesList = movies.filter((m) => favorites.includes(m._id));
 
     return (
       <Container>
         <div className="profile-view">
           <Card>
-            <h3 className="text-center pt-0">My Profile</h3>
+            <h3 className="text-center mt-5">My Profile</h3>
             <Card.Body>
-              <Card.Text>Username:&nbsp; {username}</Card.Text>
-              <Card.Text>Email:&nbsp; {email}</Card.Text>
-              <Card.Text>Birthday:&nbsp; {birthday}</Card.Text>
-              {/* Favorite Movies:
-                {favoritesList.map((movie) => (
-                  <div key={movie._id} className="fav-movies-button">
-                    <Link to={`/movies/${movie._id}`}>
-                      <Button variant="link">{movie.Title}</Button>
-                    </Link>
-                    <Button variant="dark" onClick={e => this.deleteFavorite(movie._id)}>Remove</Button>
-                  </div>
-                ))} */}
-              <div className="profile-view--btns pt-4">
+              <Card.Text><span>Username:</span>&nbsp; {username}</Card.Text>
+              <Card.Text><span>Email:</span>&nbsp; {email}</Card.Text>
+              <Card.Text><span>Birthday:</span>&nbsp; {birthday && birthday.substring(0,10)}</Card.Text>
+              {/* <Card.Text>
+                <span>Favorites: </span>
+                  {favoritesList.map((movie) => (
+                    <div key={movie._id} className="fav-movies-button">
+                      <Link to={`/movies/${movie._id}`}>
+                        <Button variant="link">{movie.Title}</Button>
+                      </Link>
+                      <Button variant="dark" onClick={e => this.deleteFavorite(movie._id)}>Remove</Button>
+                    </div>
+                  ))}
+              </Card.Text> */}
+              <div className="profile-view__btns pt-4">
                 {/* <Link to={"/user/update"}>
                   <Button variant="dark">Update Profile</Button>
                 </Link> */}

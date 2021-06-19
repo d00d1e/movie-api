@@ -8,4 +8,7 @@ body {
   box-sizing: border-box;
   font-family: "Roboto", sans-serif;
   overscroll-behavior: none;
+  background: #000 url("../src/images/background.jpg") no-repeat fixed center
+    center;
+  height: auto;
 }

@@ -1,36 +1,32 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { Row, Col, Card, Button, Container } from 'react-bootstrap';
 import './genre-view.scss';
 
 
-export default class GenreView extends Component {
-  render() {
-    const { genre  } = this.props;
+export default function GenreView({genre}) {
+  const history = useHistory();
 
-    if (!genre) return null;
-
-    return (
-      <Container>
+  return (
+    <Container>
+      {genre &&
         <div className='genre-view'>
-          <Card className="genre-view--card">
+          <Card className="genre-view__card">
             <Card.Header className='text-center'>
-              <h2>{genre.Name}</h2>
+              <h2>{genre.Genre.Name}</h2>
             </Card.Header>
             <Row>
               <Col className='text-center'>
-                <span>{genre.Description}</span>
+                <span>{genre.Genre.Description}</span>
               </Col>
             </Row>
             <div className="text-center pt-4">
-              <Link to={`/`}>
-                <Button variant="dark">Back</Button>
-              </Link>
+              <Button variant="dark" onClick={() => history.goBack()}>Back</Button>
             </div>
           </Card>
         </div>
-      </Container>
-    );
-  }
+      }
+    </Container>
+  );
 }

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import { Form, Button } from 'react-bootstrap';
 
 import './login-view.scss'
 
@@ -24,12 +23,12 @@ export default function LoginView(props) {
       props.onLoggedIn(data); //update user state of MainView
     })
     .catch(e => {
-      console.log('no such user')
+      console.log('No such user')
     });
   };
 
   return (
-    <div className="login-form">
+    <div className="login-view__form">
       <h3>Login</h3>
       <Form>
         <Form.Group controlId="formBasicUsername">
@@ -51,13 +50,13 @@ export default function LoginView(props) {
             onChange={e => setPassword(e.target.value)} />
         </Form.Group>
 
-        <div className="submit-button">
+        <div className="submit-button mt-5">
           <Button variant="primary btn-block" type="submit" onClick={handleSubmit}>Submit</Button>
         </div>
 
-        {/* <div className="register">
-          <h5>Are you new? <Link to={`/register`}>Register Here</Link></h5>
-        </div> */}
+        <div className="register">
+          <h6>Don't have an account? &nbsp; <Link to={`/register`}>Sign Up</Link></h6>
+        </div>
       </Form>
     </div>
   )

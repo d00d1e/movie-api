@@ -5,32 +5,50 @@
   height: 90vh;
   width: 100%;
   margin: 0 auto;
-  padding: 3rem 0;
+  padding-top: 11rem;
 }
 
-.movie-view img {
-  width: 30rem;
+.movie-view__content {
+  background-color: rgba(0, 0, 0, 0.7);
+  // background-color: white;
+  margin: 5rem;
 }
 
-.movie-view--title {
+.movie-view__img {
+  max-width: 31rem;
+  min-width: 17rem;
+}
+
+.movie-view__body {
+  flex-direction: column;
+}
+
+.movie-view__title {
   color: white;
   margin-bottom: 4rem;
+  font-weight: bold;
+  letter-spacing: 0.1rem;
 }
 
-.movie-view--description {
-  width: 32rem;
+.movie-view__description {
+  width: 29rem;
 }
 
-.movie-view--description p {
+.movie-view__description p {
   color: white;
   font-size: 1.1rem;
   padding: 0 0.3rem;
 }
 
-.movie-view--link:hover {
+.movie-view__link:hover {
   text-decoration: none;
 }
 
-.movie-view button {
-  margin-top: 3rem;
+.movie-view .btn .btn-dark {
+  padding: 5rem 2rem;
+}
+
+.movie-view h5 > span {
+  font-size: 1.2rem;
+  letter-spacing: 0.1rem;
 }

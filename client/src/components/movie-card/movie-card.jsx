@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
 import Card from 'react-bootstrap/Card';
-
 import './movie-card.scss';
 
 
@@ -11,12 +10,12 @@ export default class MovieCard extends Component {
     const { movie } = this.props;
 
 		return (
-			<div className="movie-card h-100">
-				<Card className="movie-card--card" style={{ minWidth: '16rem'}}>
-					<Link to={`/movies/${movie._id}`}>
-						<Card.Img variant="top" src={movie.imageUrl} className="movie-card--image" />
-					</Link>
-				</Card>
+			<div className="movie-card">
+        <Card className="movie-card__card">
+          <Link to={`/movies/${movie._id}`}>
+            <Card.Img variant="top" src={movie.imageUrl} className="movie-card__image image-sponsive w-100" />
+          </Link>
+        </Card>
 			</div>
 		);
 	}

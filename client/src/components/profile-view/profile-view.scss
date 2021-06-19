@@ -6,17 +6,24 @@
   height: 90vh;
   width: 100%;
   margin: 0 auto;
+  padding-top: 11rem;
 }
 
 .profile-view .card {
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.7);
   height: auto;
   padding: 0rem 3rem 2rem;
   width: 60%;
 }
 
-.profile-view--btns {
+.profile-view__btns {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+}
+
+.card-text > span {
+  color: #777;
+  font-size: 0.9rem;
+  font-weight: bold;
 }

@@ -25,8 +25,8 @@ export default function RegistrationView() {
     axios
       .post("https://i-flix.herokuapp.com/users", createdUser)
       .then((response) => {
-        console.log(response);
-        console.log(response.data);
+        // console.log(response);
+        // console.log(response.data);
         alert("User created successfully");
         window.open("/client", "_self");
       })
@@ -37,7 +37,7 @@ export default function RegistrationView() {
   };
 
   return (
-    <div className="registration-form">
+    <div className="registration-view__form">
       <h3>Sign Up</h3>
       <Form>
         <Form.Group controlId="formBasicUsername">
@@ -80,12 +80,12 @@ export default function RegistrationView() {
           />
         </Form.Group>
 
-        <div className="submit-button">
+        <div className="submit-button mt-5">
           <Button variant="primary btn-block" type="submit" onClick={handleSubmit}>Submit</Button>
         </div>
 
         <div className="login">
-          <h5>Have an account? <Link to={`/`}>Login</Link></h5>
+          <h6>Already have an account? &nbsp; <Link to={`/`}>Login here →</Link></h6>
         </div>
       </Form>
     </div>

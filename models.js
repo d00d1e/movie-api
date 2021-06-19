@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 // Movie Model
 var movieSchema = mongoose.Schema({
@@ -7,17 +7,16 @@ var movieSchema = mongoose.Schema({
   Description: { type: String, required: true },
   Genre: {
     Name: String,
-    Description: String
+    Description: String,
   },
   Director: {
     Name: String,
-    Bio: String
+    Bio: String,
   },
   Actors: [String],
   imageUrl: String,
-  Featured: Boolean
+  Featured: Boolean,
 });
-
 
 // User Model
 var userSchema = mongoose.Schema({
@@ -25,7 +24,7 @@ var userSchema = mongoose.Schema({
   password: { type: String, required: true },
   email: { type: String, required: true },
   birthday: { type: Date, trim: true },
-  favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movie' }]
+  favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: "Movie" }],
 });
 
 // hash password
@@ -34,13 +33,13 @@ userSchema.statics.hashPassword = (password) => {
 };
 
 // compares hashed pw with hashed pw stored in db
-userSchema.methods.validatePassword = function(password) {
+userSchema.methods.validatePassword = function (password) {
   return bcrypt.compareSync(password, this.password);
 };
 
 //model used in index.js to CRUD documents in DB
-let Movie = mongoose.model('Movie', movieSchema);
-let User = mongoose.model('User', userSchema);
+let Movie = mongoose.model("Movie", movieSchema);
+let User = mongoose.model("User", userSchema);
 
 //export models into index.js file
-module.exports = { Movie, User }
+module.exports = { Movie, User };

@@ -1,7 +1,12 @@
 .movie-card {
-  margin: 1rem;
+  margin: 1rem 0.5rem;
 }
 
-.movie-card--card {
-  background-color: black;
+.movie-card__card {
+  background-color: transparent;
+  min-width: 16rem;
+}
+
+.movie-card__image {
+  object-fit: cover;
 }

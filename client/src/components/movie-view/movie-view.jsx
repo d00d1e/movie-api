@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 
-import { Button, Media } from 'react-bootstrap';
+import { Button, Container, Col, Row, Image } from 'react-bootstrap';
 import './movie-view.scss';
 
 
@@ -12,30 +12,38 @@ export default class MovieView extends Component {
     if(!movie) return null;
 
     return (
-      <div className="movie-view row">
-        <Media className="align-items-center justify-content-center ">
-          <img className="m-5" alt="movie poster" src={movie.imageUrl}/>
-          <Media.Body className="mr-5">
-            <h1 className="movie-view--title">{movie.Title}</h1>
-            <h5 className="movie-genre mb-2 text-muted">Genre:&nbsp;
-              <Link to={`/genre/${movie.Genre.Name}`} className="movie-view--link">{movie.Genre.Name}</Link>
-            </h5>
-            <h5 className="movie-director mb-2 text-muted">Director:&nbsp;
-              <Link to={`/director/${movie.Director.Name}`} className="movie-view--link">{movie.Director.Name}</Link>
-            </h5>
-            <div className="movie-view--description">
-              <h5 className="text-muted">Description:</h5>
-              <p className="movie-view--description">{movie.Description}</p>
-            </div>
+      <Container fluid className="movie-view">
+        <Row className="movie-view__content container">
+          <Col className="movie-view__img d-flex justify-content-center m-5">
+            <Image fluid alt="movie poster" src={movie.imageUrl}/>
+          </Col>
+          <Col className="movie-view__body d-flex justify-content-center m-5">
+            <Row>
+              <h1 className="movie-view__title">{movie.Title}</h1>
+            </Row>
+            <Row>
+              <h5 className="movie-view__genre mb-2 text-muted"><span>Genre:</span>&nbsp;
+                <Link to={`/genre/${movie.Genre.Name}`} className="movie-view--link">{movie.Genre.Name}</Link>
+              </h5>
+            </Row>
+            <Row>
+              <h5 className="movie-view__director mb-2 text-muted"><span>Director:</span>&nbsp;
+                <Link to={`/director/${movie.Director.Name}`} className="movie-view--link">{movie.Director.Name}</Link>
+              </h5>
+            </Row>
+            <Row className="movie-view__description">
+              <h5 className="text-muted"><span>Synopsis:</span></h5>
+              <p className="movie-view-__description ml-3">{movie.Description}</p>
+            </Row>
 
-            <div className="text-center">
+            <Row className="text-center mt-5">
               <Link to={`/`}>
                 <Button variant="dark">Back</Button>
               </Link>
-            </div>
-          </Media.Body>
-        </Media>
-      </div>
+            </Row>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }

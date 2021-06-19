@@ -1,6 +1,7 @@
-.registration-form {
-  display: block;
+.registration-view__form {
+  height: 90vh;
   text-align: center;
+  padding-top: 11rem;
 }
 
 Form {
@@ -8,6 +9,7 @@ Form {
   display: inline-block;
   margin: 0 auto;
   width: 30%;
+  min-width: 18rem;
   text-align: left;
 }
 
@@ -23,5 +25,4 @@ Form {
 h3 {
   color: white;
   margin-top: 120px;
-  // text-transform: uppercase;
 }

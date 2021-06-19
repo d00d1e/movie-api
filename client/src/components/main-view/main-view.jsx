@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { Router, Route } from "react-router-dom";
+import { createBrowserHistory } from "history";
 import { connect } from 'react-redux';
 import axios from 'axios';
 
-import { setMovies } from '../../actions/actions';
+import { setMovies, toggleFavorites } from '../../redux/actions/actions';
 
 import LoginView from '../login-view/login-view';
 import RegistrationView from '../registration-view/registration-view';
@@ -12,17 +13,26 @@ import GenreView from '../genre-view/genre-view';
 import DirectorView from '../director-view/director-view';
 import ProfileView from '../profile-view/profile-view';
 import MoviesList from '../movies-list/movies-list';
+import NavigationBar from "../navigation-bar.js/navigation-bar";
 
-import { Navbar, Button } from "react-bootstrap";
 import './main-view.scss';
 
+// config apps basename in react-router
+const history = createBrowserHistory({
+  basename: 'client'
+})
 
 class MainView extends Component {
   constructor() {
     super();
     this.state = {
-      user: null
+      user: null,
+      favorites: [],
+      movies: []
     };
+
+    this.onLogout = this.onLogout.bind(this);
+    this.onLoggedIn = this.onLoggedIn.bind(this);
   }
 
   componentDidMount() {
@@ -30,11 +40,9 @@ class MainView extends Component {
     if (accessToken !== null) {
       this.setState({ user: localStorage.getItem('user') });
       this.getMovies(accessToken);
-    };
-  }
+      // this.getFavorites(accessToken)
 
-  onMovieClick(movie) {
-    this.setState({ selectedMovie: movie });
+    };
   }
 
   onLoggedIn(authData) {
@@ -43,6 +51,8 @@ class MainView extends Component {
     localStorage.setItem('token', authData.token);
     localStorage.setItem('user', authData.user.username);
     this.getMovies(authData.token);
+    // this.getFavorites(authData.token, authData.user.username)
+
     // console.log(authData);
   }
 
@@ -59,7 +69,7 @@ class MainView extends Component {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(response => {
-      // this.setState({ movies: response.data });
+      this.setState({ movies: response.data});
       this.props.setMovies(response.data);
     })
     .catch(function (error) {
@@ -67,46 +77,26 @@ class MainView extends Component {
     });
   }
 
+  // getFavorites(token, user) {
+  //   axios.get(`https://i-flix.herokuapp.com/users/${user}/favorites`, {
+  //     headers: { Authorization: `Bearer ${token}` }
+  //   })
+  //   .then(response => {
+  //     this.setState({ favorites: response.data})
+  //     this.props.setFavorites(response.data)
+  //   })
+  // }
+
   render() {
-   const { movies } = this.props;
+   const { movies, favorites } = this.props;
    const { user } = this.state;
 
     if (!movies) return <div className="main-view"/>;
 
     return (
-      <BrowserRouter basename="/client">
+      <Router history={history}>
         <div className="main-view">
-          <Navbar className="navbar" sticky="top" expand="lg">
-            <Navbar.Brand className="navbar-brand">
-              <Link to={`/`} className="navbar-brand--link"><sup>i</sup>flix</Link>
-            </Navbar.Brand>
-            <div>
-              { user &&  <h6 id="username">Welcome,&nbsp;<span>{user}</span>!</h6> }
-            </div>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" className="navbar-dark" />
-            <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
-              {!user ? (
-                <ul>
-                  <Link to={`/`}>
-                    <Button variant="link" className="main-view--button">Login</Button>
-                  </Link>
-                  <Link to={`/register`}>
-                    <Button variant="link" className="main-view--button">Register</Button>
-                  </Link>
-                </ul>
-              ) : (
-                <ul>
-                  <Link to={`/`}>
-                    <Button variant="link" className="main-view--button" onClick={() => this.onLogout()}>Logout</Button>
-                  </Link>
-                  <Link to={`/users/`} >
-                    <Button variant="link" className="main-view--button">Profile</Button>
-                  </Link>
-                </ul>
-              )}
-            </Navbar.Collapse>
-          </Navbar>
-
+          <NavigationBar user={user} onLogout={this.onLogout} />
           <Route
             exact path="/"
             render={() => {
@@ -132,18 +122,24 @@ class MainView extends Component {
             exact path="/genre/:genre"
             render={({ match }) => {
               if (!movies) return <div className="main-view"/>;
-              return <GenreView genre={movies.find(m => m.Genre.Name === match.params.genre).Genre}/>}
+              return <GenreView genre={movies.find(m => m.Genre.Name === match.params.genre)}/>}
             }
           />
           <Route
             exact path="/director/:director"
             render={({ match }) => {
               if (!movies) return <div className="main-view"/>;
-              return <DirectorView director={movies.find(m => m.Director.Name === match.params.director).Director}/>}
+              return <DirectorView director={movies.find(m => m.Director.Name === match.params.director)}/>}
+            }
+          />
+          <Route
+            exact path="/users/:username/favorites"
+            render={() =>
+              {favorites && <MovieList movies={favorites} />}
             }
           />
         </div>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
@@ -154,4 +150,4 @@ const mapStateToProps = state => {
 }
 
 // wrap stateful component to connect to a store, HOC returns new component
-export default connect(mapStateToProps, { setMovies })(MainView);
+export default connect(mapStateToProps, { setMovies, toggleFavorites })(MainView);
