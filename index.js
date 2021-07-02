@@ -22,6 +22,31 @@ mongoose.connect(process.env.MONGODB_URI, {
 // middleware functions
 const app = express(); //variable that encapsulates Express's methods
 app.use(express.static(__dirname + "public")); //routes all requests for static files to 'public' folder
+
+// CORS
+let allowedOrigins = [
+  "*",
+  "http://localhost:8000",
+  "https://i-flix.herokuapp.com/",
+  "http://localhost:1234",
+];
+app.use(cors());
+// app.use(
+//   cors({
+//     origin: (origin, callback) => {
+//       if (!origin) return callback(null, true);
+//       //if specific origin isnt found on list of allowed origins
+//       if (allowedOrigins.indexOf(origin) === -1) {
+//         let message =
+//           "The CORS policy for this application doesn’t allow access from origin " +
+//           origin;
+//         return callback(new Error(message), false);
+//       }
+//       return callback(null, true);
+//     },
+//   })
+// );
+
 app.use("/client", express.static(path.join(__dirname, "client", "dist")));
 app.use(morgan("common")); //request log using Morgans 'common' format
 app.use(bodyParser.json()); //stores JS object accessible through req.body
@@ -37,29 +62,6 @@ let auth = require("./auth")(app);
 //Passport modules
 const passport = require("passport");
 require("./passport");
-
-// CORS
-let allowedOrigins = [
-  "*",
-  "http;//localhost:8000",
-  "https://i-flix.herokuapp.com/",
-  "http://localhost:1234",
-];
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin) return callback(null, true);
-      //if specific origin isnt found on list of allowed origins
-      if (allowedOrigins.indexOf(origin) === -1) {
-        let message =
-          "The CORS policy for this application doesn’t allow access from origin " +
-          origin;
-        return callback(new Error(message), false);
-      }
-      return callback(null, true);
-    },
-  })
-);
 
 //--- API Endpoints ---//
 
@@ -156,10 +158,11 @@ app.get(
   (req, res) => {
     Users.findOne({ username: req.params.username })
       .populate({ path: "favorites", model: "Movie" })
-      .exec((err, favorites) => {
-        if (err) return handleError(err);
-        // console.log(favorites);
-      })
+      // .exec((err, favorites) => {
+      //   console.log(err);
+      //   if (err) return handleError(err);
+      //   // console.log(favorites);
+      // })
       .then((user) => {
         res.status(200).json(user);
       })

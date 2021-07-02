@@ -1,0 +1,272 @@
+.login-view__form {
+  height: 90vh;
+  display: block;
+  text-align: center;
+  padding-top: 11rem;
+}
+
+Form {
+  color: white;
+  display: inline-block;
+  margin: 0 auto;
+  width: 30%;
+  min-width: 18rem;
+  text-align: left;
+}
+
+.register {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.submit-button {
+  margin-top: 20px;
+}
+
+h3 {
+  color: white;
+  margin-top: 120px;
+}
+.registration-view__form {
+  height: 90vh;
+  text-align: center;
+  padding-top: 11rem;
+}
+
+Form {
+  color: white;
+  display: inline-block;
+  margin: 0 auto;
+  width: 30%;
+  min-width: 18rem;
+  text-align: left;
+}
+
+.login {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.submit-button {
+  margin-top: 20px;
+}
+
+h3 {
+  color: white;
+  margin-top: 120px;
+}
+.movie-view {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 11rem;
+}
+
+.movie-view__content {
+  background-color: rgba(0, 0, 0, 0.7);
+  margin: 5rem;
+}
+
+.movie-view__img {
+  max-width: 31rem;
+  min-width: 17rem;
+}
+
+.movie-view__body {
+  flex-direction: column;
+}
+
+.movie-view__title {
+  color: white;
+  margin-bottom: 4rem;
+  font-weight: bold;
+  letter-spacing: 0.1rem;
+}
+
+.movie-view__description {
+  width: 29rem;
+}
+
+.movie-view__description p {
+  color: white;
+  font-size: 1.1rem;
+  padding: 0 0.3rem;
+}
+
+.movie-view__link:hover {
+  text-decoration: none;
+}
+
+.movie-view .btn .btn-dark {
+  padding: 5rem 2rem;
+}
+
+.movie-view h5 > span {
+  font-size: 1.2rem;
+  letter-spacing: 0.1rem;
+}
+.genre-view {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 11rem;
+}
+
+.genre-view__card {
+  background-color: rgba(0, 0, 0, 0.7);
+  height: auto;
+  padding: 3rem;
+}
+.director-view {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 11rem;
+}
+
+.director-view__card {
+  background-color: rgba(0, 0, 0, 0.7);
+  height: auto;
+  padding: 3rem;
+}
+.profile-view {
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 11rem;
+}
+
+.profile-view .card {
+  background-color: rgba(0, 0, 0, 0.7);
+  height: auto;
+  padding: 0rem 3rem 2rem;
+  width: 60%;
+}
+
+.profile-view__btns {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.card-text > span {
+  color: #777;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+.filter {
+  display: block;
+  width: 40%;
+  margin: 0 auto;
+  padding: 11rem 0 1rem 0;
+}
+.movie-card {
+  margin: 1rem 0.5rem;
+}
+
+.movie-card__card {
+  background-color: transparent;
+  min-width: 16rem;
+}
+
+.movie-card__image {
+  object-fit: cover;
+}
+.movie-list-container {
+  width: 80%;
+  margin: auto;
+}
+
+.movies-filter {
+  margin: auto;
+}
+
+.movies-filter h1 {
+  font-weight: bold;
+  letter-spacing: 0.1rem;
+}
+#username {
+  color: white;
+  padding: 6px 12px;
+  margin: 0 20px 0 0;
+}
+
+#username span {
+  text-transform: capitalize;
+  text-decoration: underline;
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+ul {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar {
+  width: 100%;
+  background-color: black;
+  padding: 0.5rem 2rem;
+}
+
+.navbar-brand {
+  font-size: 4rem;
+  font-weight: 900;
+  letter-spacing: 0.01rem;
+}
+
+.navbar-brand__link {
+  color: #e50916;
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+  transition: all 0.7s ease-in;
+}
+
+.navbar-brand__link:hover {
+  text-decoration: none;
+  color: #fff;
+  text-shadow: -1px -1px 0 #e50916, 1px -1px 0 #e50916, -1px 1px 0 #e50916, 1px 1px 0 #e50916;
+}
+
+.navbar__button,
+.navbar__button:focus {
+  text-decoration: none;
+  color: white;
+  transition: color 1s ease;
+}
+
+.navbar__button:hover {
+  text-decoration: none;
+  color: gray;
+}
+*:focus {
+  outline: none;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+  overscroll-behavior: none;
+  background: #000 url("/background.565aafb9.jpg") no-repeat fixed center center;
+  height: auto;
+}
+
+/*# sourceMappingURL=/src.78399e21.css.map */
