@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server/index.js",
     "skip-postinstall": "(cd client && npm install)",
-    "build": "parcel build client/src/index.html --out-dir ./client/dist",
+    "build": "parcel build client/src/index.html --public-url /client --out-dir ./client/dist",
     "server": "nodemon server/index.js",
     "client": "parcel client/src/index.html --out-dir ./client/dist",
     "dev": "concurrently \"npm run server\" \"npm run client\""
