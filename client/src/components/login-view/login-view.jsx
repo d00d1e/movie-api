@@ -14,7 +14,7 @@ export default function LoginView(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     /* Send a request to the server for authentication */
-    axios.post('https://i-flix.herokuapp.com/login', {
+    axios.post(process.env.API_URI + '/login', {
       username: username,
       password: password
     })

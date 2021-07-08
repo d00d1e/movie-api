@@ -28,7 +28,7 @@ export default class ProfileView extends Component {
   getUser(token) {
     const username = localStorage.getItem("user");
 
-    axios.get(`https://i-flix.herokuapp.com/users/${username}`, {
+    axios.get(process.env.API_URI + `/users/${username}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -59,7 +59,7 @@ export default class ProfileView extends Component {
   // }
 
   deleteUser(e) {
-    axios.delete(`https://i-flix.herokuapp.com/users/${localStorage.getItem("user")}`, {
+    axios.delete(process.env.API_URI + `/users/${localStorage.getItem("user")}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     })
     .then(response => {

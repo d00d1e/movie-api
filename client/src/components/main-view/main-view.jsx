@@ -65,7 +65,7 @@ class MainView extends Component {
   }
 
   getMovies(token) {
-    axios.get('https://i-flix.herokuapp.com/movies', {
+    axios.get(process.env.API_URI + '/movies', {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(response => {

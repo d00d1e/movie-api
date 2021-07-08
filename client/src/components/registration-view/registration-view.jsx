@@ -23,7 +23,7 @@ export default function RegistrationView() {
     };
 
     axios
-      .post("https://i-flix.herokuapp.com/users", createdUser)
+      .post(process.env.API_URI + "/users", createdUser)
       .then((response) => {
         // console.log(response);
         // console.log(response.data);
