@@ -332,5 +332,5 @@ app.get("*", (req, res) => {
 // pre-configured port number in the env variable first
 const port = process.env.PORT || 8000;
 app.listen(port, "0.0.0.0", () => {
-  console.log("Server started on port " + port);
+  console.log("Server started on port http://localhost:" + port);
 });
