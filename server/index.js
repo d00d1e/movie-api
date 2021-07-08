@@ -47,13 +47,16 @@ app.use(cors());
 //   })
 // );
 
-app.use("/client", express.static(path.join(__dirname, "client", "dist")));
+app.use(
+  "/client",
+  express.static(path.join(__dirname, "..", "client", "dist"))
+);
 app.use(morgan("common")); //request log using Morgans 'common' format
 app.use(bodyParser.json()); //stores JS object accessible through req.body
 
 // inform server: client-side routes handled by sending dist/index.html file
 app.get("/client/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+  res.sendFile(path.join(__dirname, "..", "client", "dist", "index.html"));
 });
 
 //import auth.js (place after bodyParser)
