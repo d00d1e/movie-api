@@ -35,6 +35,12 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0"
   },
+  "nodemonConfig": {
+    "ignore": [
+      "client/*"
+    ],
+    "delay": 500
+  },
   "engines": {
     "node": "14.17.0"
   },
