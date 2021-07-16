@@ -17,10 +17,19 @@ export default class MovieView extends Component {
             <Image fluid alt="movie poster" src={movie.imageUrl} />
           </Col>
           <Col className="movie-view__body d-flex justify-content-center m-5">
-            <Button onClick={onFavoriteClick}>
-              {isFavorited ? "Remove from Favorites" : "Add to Favorites"}
-            </Button>
-
+            <Row className="text-right mb-5">
+              <Button
+                className="favorite-btn ml-auto"
+                variant="danger"
+                onClick={onFavoriteClick}
+              >
+                {isFavorited ? (
+                  <i className="fas fa-heart"></i>
+                ) : (
+                  <i className="far fa-heart"></i>
+                )}
+              </Button>
+            </Row>
             <Row>
               <h1 className="movie-view__title">{movie.Title}</h1>
             </Row>
