@@ -11,7 +11,7 @@ export default function NavigationBar({ user, onLogout }) {
 
   return (
     <div>
-      <Navbar className="navbar fixed-top" expand="lg">
+      <Navbar className="navbar" expand="lg">
         <Navbar.Brand className="navbar-brand">
           <Link to={`/`} className="navbar-brand__link">
             iflix
