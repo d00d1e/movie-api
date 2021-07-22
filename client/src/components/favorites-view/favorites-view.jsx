@@ -16,13 +16,15 @@ export default function FavoritesView({ favorites }) {
           <Card.Header className="text-center">
             <h2>Favorite Movies</h2>
           </Card.Header>
-          <Row>
-            {favorites.map((fav) => (
-              <Col key={fav}>
-                <p>{fav}</p>
-              </Col>
-            ))}
-          </Row>
+          <Container fluid className="movie-list-container pb-5 mb-5">
+            <Row>
+              {favorites.map((movie) => (
+                <Col key={movie._id}>
+                  <MovieCard movie={movie} />
+                </Col>
+              ))}
+            </Row>
+          </Container>
           <div className="text-center pt-4">
             <Link to="/">
               <Button variant="dark" onClick={() => history.goBack()}>

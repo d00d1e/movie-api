@@ -107,6 +107,10 @@ class MainView extends Component {
     const { movies } = this.props;
     const { user, favorites } = this.state;
 
+    const favoriteMovies = movies.filter((x) =>
+      this.state.favorites.includes(x._id)
+    );
+
     if (!movies) return <div className="main-view" />;
 
     return (
@@ -176,7 +180,7 @@ class MainView extends Component {
           <Route
             exact
             path="/users/favorites"
-            render={() => <FavoritesView favorites={favorites} />}
+            render={() => <FavoritesView favorites={favoriteMovies} />}
           />
         </div>
       </Router>

@@ -161,11 +161,6 @@ app.get(
   (req, res) => {
     Users.findOne({ username: req.params.username })
       .populate({ path: "favorites", model: "Movie" })
-      // .exec((err, favorites) => {
-      //   console.log(err);
-      //   if (err) return handleError(err);
-      //   // console.log(favorites);
-      // })
       .then((user) => {
         res.status(200).json(user);
       })

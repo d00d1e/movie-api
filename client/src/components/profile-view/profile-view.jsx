@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 import { Container, Card, Button } from "react-bootstrap";
-import './profile-view.scss';
-
+import "./profile-view.scss";
 
 export default class ProfileView extends Component {
   constructor(props) {
@@ -28,10 +27,12 @@ export default class ProfileView extends Component {
   getUser(token) {
     const username = localStorage.getItem("user");
 
-    axios.get(process.env.API_URI + `/users/${username}`, {
+    axios
+      .get(process.env.API_URI + `/users/${username}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
+        console.log("data", res);
         this.setState({
           username: res.data.username,
           password: res.data.password,
@@ -59,17 +60,18 @@ export default class ProfileView extends Component {
   // }
 
   deleteUser(e) {
-    axios.delete(process.env.API_URI + `/users/${localStorage.getItem("user")}`, {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    })
-    .then(response => {
-      alert("Account deleted");
-      localStorage.removeItem("token", "user");
-      window.open("/");
-    })
-    .catch(e => {
-      alert("Failed to delete user");
-    });
+    axios
+      .delete(process.env.API_URI + `/users/${localStorage.getItem("user")}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+      .then((response) => {
+        alert("Account deleted");
+        localStorage.removeItem("token", "user");
+        window.open("/");
+      })
+      .catch((e) => {
+        alert("Failed to delete user");
+      });
   }
 
   render() {
@@ -82,9 +84,16 @@ export default class ProfileView extends Component {
           <Card>
             <h3 className="text-center mt-5">My Profile</h3>
             <Card.Body>
-              <Card.Text><span>Username:</span>&nbsp; {username}</Card.Text>
-              <Card.Text><span>Email:</span>&nbsp; {email}</Card.Text>
-              <Card.Text><span>Birthday:</span>&nbsp; {birthday && birthday.substring(0,10)}</Card.Text>
+              <Card.Text>
+                <span>Username:</span>&nbsp; {username}
+              </Card.Text>
+              <Card.Text>
+                <span>Email:</span>&nbsp; {email}
+              </Card.Text>
+              <Card.Text>
+                <span>Birthday:</span>&nbsp;{" "}
+                {birthday && birthday.substring(0, 10)}
+              </Card.Text>
               {/* <Card.Text>
                 <span>Favorites: </span>
                   {favoritesList.map((movie) => (
@@ -103,7 +112,9 @@ export default class ProfileView extends Component {
                 <Link to={`/`}>
                   <Button variant="dark">Back</Button>
                 </Link>
-                <Button variant="warning" onClick={() => this.deleteUser()}>Delete User</Button>
+                <Button variant="warning" onClick={() => this.deleteUser()}>
+                  Delete User
+                </Button>
               </div>
             </Card.Body>
           </Card>
