@@ -12,9 +12,10 @@ import MovieView from "../movie-view/movie-view";
 import GenreView from "../genre-view/genre-view";
 import DirectorView from "../director-view/director-view";
 import ProfileView from "../profile-view/profile-view";
-import MoviesList from "../movies-list/movies-list";
-import NavigationBar from "../navigation-bar.js/navigation-bar";
 import FavoritesView from "../favorites-view/favorites-view";
+
+import MoviesList from "../../components/movies-list/movies-list";
+import NavigationBar from "../../components/navigation-bar/navigation-bar";
 
 import "./main-view.scss";
 
@@ -69,7 +70,7 @@ class MainView extends Component {
 
   getMovies(token) {
     axios
-      .get(process.env.API_URI + "/movies", {
+      .get(`${process.env.API_URI}/movies`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -81,11 +82,19 @@ class MainView extends Component {
       });
   }
 
+  getFavorites(token, user) {
+    axios
+      .get(`${process.env.API_URI}/users/${user}/favorites`, {})
+      .then((response) => {
+        this.setState({ favorites: response.data });
+      });
+  }
+
   toggleFavoritedMovie(id) {
     if (this.state.favorites.includes(id)) {
       // Do a DELETE request to the backend
       axios.delete(
-        process.env.API_URI + `/users/${this.state.user}/favorites/${id}`,
+        `${process.env.API_URI}/users/${this.state.user}/favorites/${id}`,
         {}
       );
 
@@ -96,7 +105,7 @@ class MainView extends Component {
     } else {
       // Do a POST request to the backend
       axios.post(
-        process.env.API_URI + `/users/${this.state.user}/favorites/${id}`,
+        `${process.env.API_URI}/users/${this.state.user}/favorites/${id}`,
         {}
       );
       // add movie to favorites
@@ -104,17 +113,6 @@ class MainView extends Component {
         favorites: [...this.state.favorites, id],
       });
     }
-  }
-
-  getFavorites(token, user) {
-    axios
-      .get(`${process.env.API_URI}/users/${user}/favorites`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((response) => {
-        this.setState({ favorites: response.data });
-        // this.props.setFavorites(response.data)
-      });
   }
 
   render() {

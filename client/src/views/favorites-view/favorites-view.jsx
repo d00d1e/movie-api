@@ -3,7 +3,7 @@ import { useHistory, Link } from "react-router-dom";
 
 import { Container, Card, Row, Col, Button } from "react-bootstrap";
 
-import MovieCard from "../movie-card/movie-card";
+import MovieCard from "../../components/movie-card/movie-card";
 import "./favorites-view.scss";
 
 export default function FavoritesView({ favorites }) {

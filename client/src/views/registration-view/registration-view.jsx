@@ -5,7 +5,6 @@ import axios from "axios";
 import { Form, Button } from "react-bootstrap";
 import "./registration-view.scss";
 
-
 export default function RegistrationView() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -38,7 +37,7 @@ export default function RegistrationView() {
 
   return (
     <div className="registration-view__form">
-      <h3>Sign Up</h3>
+      <h2>Sign Up</h2>
       <Form>
         <Form.Group controlId="formBasicUsername">
           <Form.Label>Username</Form.Label>
@@ -81,11 +80,19 @@ export default function RegistrationView() {
         </Form.Group>
 
         <div className="submit-button mt-5">
-          <Button variant="primary btn-block" type="submit" onClick={handleSubmit}>Submit</Button>
+          <Button
+            variant="primary btn-block"
+            type="submit"
+            onClick={handleSubmit}
+          >
+            Submit
+          </Button>
         </div>
 
         <div className="login">
-          <h6>Already have an account? &nbsp; <Link to={`/`}>Login here →</Link></h6>
+          <h6>
+            Already have an account? &nbsp; <Link to={`/`}>Login here →</Link>
+          </h6>
         </div>
       </Form>
     </div>

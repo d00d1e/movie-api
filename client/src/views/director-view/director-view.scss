@@ -1,4 +1,4 @@
-.genre-view {
+.director-view {
   color: white;
   height: 90vh;
   width: 100%;
@@ -6,8 +6,10 @@
   padding-top: 11rem;
 }
 
-.genre-view__card {
+.director-view__card {
   background-color: rgba(0, 0, 0, 0.7);
+  margin: 0 auto;
+  width: 85%;
   border-radius: 5px;
   height: auto;
   padding: 3rem;

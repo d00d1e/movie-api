@@ -11,3 +11,7 @@ body {
   background: #000 url("../src/images/background.jpg") no-repeat fixed;
   // height: auto;
 }
+
+::-webkit-scrollbar {
+  display: none;
+}

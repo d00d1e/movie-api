@@ -20,6 +20,8 @@ export default class ProfileView extends Component {
 
   componentDidMount() {
     const accessToken = localStorage.getItem("token");
+
+    axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
     this.getUser(accessToken);
   }
 
@@ -45,6 +47,12 @@ export default class ProfileView extends Component {
       });
   }
 
+  updateUser() {
+    const username = localStorage.getItem("user");
+
+    axios.put(`${process.env.API_URI}/users/${username}`);
+  }
+
   deleteUser(e) {
     axios
       .delete(`${process.env.API_URI}/users/${localStorage.getItem("user")}`, {
@@ -55,8 +63,9 @@ export default class ProfileView extends Component {
         localStorage.removeItem("token", "user");
         window.open("/");
       })
-      .catch((e) => {
+      .catch((err) => {
         alert("Failed to delete user");
+        console.log("Failed to delete user: ", err);
       });
   }
 
