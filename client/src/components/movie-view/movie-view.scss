@@ -5,7 +5,6 @@
   height: 90vh;
   width: 100%;
   margin: 0 auto;
-  padding-top: 11rem;
 }
 
 .movie-view__content {
@@ -17,6 +16,10 @@
 .movie-view__img {
   max-width: 31rem;
   min-width: 17rem;
+}
+
+.movie-view__img img {
+  border-radius: 5px;
 }
 
 .movie-view__body {
@@ -51,4 +54,12 @@
 .movie-view h5 > span {
   font-size: 1.2rem;
   letter-spacing: 0.1rem;
+}
+
+.favorite-btn:active {
+  transform: scale(1.2);
+}
+
+.fas.fa-heart {
+  transform: scale(1.2);
 }

@@ -14,6 +14,7 @@ import DirectorView from "../director-view/director-view";
 import ProfileView from "../profile-view/profile-view";
 import MoviesList from "../movies-list/movies-list";
 import NavigationBar from "../navigation-bar.js/navigation-bar";
+import FavoritesView from "../favorites-view/favorites-view";
 
 import "./main-view.scss";
 
@@ -174,10 +175,8 @@ class MainView extends Component {
           />
           <Route
             exact
-            path="/users/:username/favorites"
-            render={() => {
-              favorites && <MovieList movies={favorites} />;
-            }}
+            path="/users/favorites"
+            render={() => <FavoritesView favorites={favorites} />}
           />
         </div>
       </Router>
