@@ -1,8 +1,5 @@
 .director-view {
   color: white;
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
   height: 90vh;
   width: 100%;
   margin: 0 auto;
@@ -11,6 +8,7 @@
 
 .director-view__card {
   background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 5px;
   height: auto;
   padding: 3rem;
 }

@@ -1,13 +1,30 @@
 .movie-card {
   margin: 1rem 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .movie-card__card {
   background-color: transparent;
   min-width: 16rem;
+  transition: transform 0.3s;
+  border-radius: 5px;
+}
+
+.movie-card__card img {
+  margin: 0 auto;
+}
+
+.movie-card__card:hover {
+  cursor: pointer;
+  transform: scale(1.02);
 }
 
 .movie-card__image {
   object-fit: cover;
   border-radius: 5px;
+  max-height: 513px;
+  max-width: 362px;
+  margin: 0 auto;
 }

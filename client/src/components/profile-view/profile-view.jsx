@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Moment from "react-moment";
 
 import { Container, Card, Button } from "react-bootstrap";
 import "./profile-view.scss";
@@ -14,7 +15,6 @@ export default class ProfileView extends Component {
       email: null,
       birthday: null,
       favorites: [],
-      movies: [],
     };
   }
 
@@ -28,11 +28,10 @@ export default class ProfileView extends Component {
     const username = localStorage.getItem("user");
 
     axios
-      .get(process.env.API_URI + `/users/${username}`, {
+      .get(`${process.env.API_URI}/users/${username}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
-        console.log("data", res);
         this.setState({
           username: res.data.username,
           password: res.data.password,
@@ -46,22 +45,9 @@ export default class ProfileView extends Component {
       });
   }
 
-  // deleteFavorite(movieId) {
-  //   // console.log(this.props.movies);
-  //   axios.delete(`https://i-flix.herokuapp.com/users/${localStorage.getItem("user")}/favorites/${movieId}`, {
-  //     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-  //   })
-  //   .then(res => {
-  //     alert("Removed movie from favorites");
-  //   })
-  //   .catch(e => {
-  //     alert("Error removing movie: " + e);
-  //   });
-  // }
-
   deleteUser(e) {
     axios
-      .delete(process.env.API_URI + `/users/${localStorage.getItem("user")}`, {
+      .delete(`${process.env.API_URI}/users/${localStorage.getItem("user")}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       })
       .then((response) => {
@@ -75,14 +61,14 @@ export default class ProfileView extends Component {
   }
 
   render() {
-    const { username, email, birthday, movies, favorites } = this.state;
-    // const favoritesList = movies.filter((m) => favorites.includes(m._id));
+    const { username, email, birthday } = this.state;
 
+    console.log(birthday);
     return (
       <Container>
         <div className="profile-view">
           <Card>
-            <h3 className="text-center mt-5">My Profile</h3>
+            <h2 className="text-center mt-5">My Profile</h2>
             <Card.Body>
               <Card.Text>
                 <span>Username:</span>&nbsp; {username}
@@ -91,20 +77,9 @@ export default class ProfileView extends Component {
                 <span>Email:</span>&nbsp; {email}
               </Card.Text>
               <Card.Text>
-                <span>Birthday:</span>&nbsp;{" "}
-                {birthday && birthday.substring(0, 10)}
+                <span>Birthday:</span>&nbsp;
+                <Moment format="MMMM DD, YYYY">{birthday}</Moment>
               </Card.Text>
-              {/* <Card.Text>
-                <span>Favorites: </span>
-                  {favoritesList.map((movie) => (
-                    <div key={movie._id} className="fav-movies-button">
-                      <Link to={`/movies/${movie._id}`}>
-                        <Button variant="link">{movie.Title}</Button>
-                      </Link>
-                      <Button variant="dark" onClick={e => this.deleteFavorite(movie._id)}>Remove</Button>
-                    </div>
-                  ))}
-              </Card.Text> */}
               <div className="profile-view__btns pt-4">
                 {/* <Link to={"/user/update"}>
                   <Button variant="dark">Update Profile</Button>

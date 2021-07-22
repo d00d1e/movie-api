@@ -248,6 +248,17 @@ app.put(
   }
 );
 
+app.get("/users/:username/favorites/", (req, res) => {
+  Users.findOne({ username: req.params.username })
+    .then((user) => {
+      res.status(200).json(user.favorites);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
+
 // POST- add a movie to list of favorites
 app.post(
   "/users/:username/favorites/:movieId",
@@ -258,9 +269,6 @@ app.post(
       { $push: { favorites: req.params.movieId } },
       { new: true }
     )
-      .save((err) => {
-        console.log(err);
-      })
       .then((movie) => {
         res.status(201).json(movie);
       })

@@ -16,7 +16,7 @@ export default class MovieView extends Component {
           <Col className="movie-view__img d-flex justify-content-center m-5">
             <Image fluid alt="movie poster" src={movie.imageUrl} />
           </Col>
-          <Col className="movie-view__body d-flex justify-content-center m-5">
+          <Col className="movie-view__body m-5">
             <Row className="text-right mb-5">
               <Button
                 className="favorite-btn ml-auto"

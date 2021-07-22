@@ -17,6 +17,11 @@ export default function NavigationBar({ user, onLogout }) {
             iflix
           </Link>
         </Navbar.Brand>
+        {user && (
+          <p id="username">
+            Welcome &nbsp;<span>{user}</span>
+          </p>
+        )}
         <Navbar.Toggle
           aria-controls="basic-navbar-nav"
           className="navbar-dark"
@@ -37,11 +42,6 @@ export default function NavigationBar({ user, onLogout }) {
             </ul>
           ) : (
             <ul>
-              {user && (
-                <p id="username">
-                  Welcome &nbsp;<span>{user}</span>
-                </p>
-              )}
               <Link to={`/users/`}>
                 <Button variant="link" className="navbar__button">
                   Profile

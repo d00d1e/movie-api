@@ -1,18 +1,18 @@
 .profile-view {
   color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   height: 90vh;
   width: 100%;
-  margin: 0 auto;
+  padding-top: 11rem;
+  font-size: 1.1rem;
 }
 
 .profile-view .card {
   background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 5px;
   height: auto;
   padding: 0rem 3rem 2rem;
-  width: 60%;
+  margin: 0 auto;
+  width: 55%;
 }
 
 .profile-view__btns {

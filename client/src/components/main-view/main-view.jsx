@@ -39,22 +39,24 @@ class MainView extends Component {
 
   componentDidMount() {
     let accessToken = localStorage.getItem("token");
+
     if (accessToken !== null) {
-      this.setState({ user: localStorage.getItem("user") });
+      const user = localStorage.getItem("user");
+
+      axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
+      this.setState({ user });
       this.getMovies(accessToken);
-      // this.getFavorites(accessToken)
+      this.getFavorites(accessToken, user);
     }
   }
 
   onLoggedIn(authData) {
-    this.setState({ user: authData.user.username });
-
     localStorage.setItem("token", authData.token);
     localStorage.setItem("user", authData.user.username);
-    this.getMovies(authData.token);
-    // this.getFavorites(authData.token, authData.user.username)
 
-    // console.log(authData);
+    this.setState({ user: authData.user.username });
+    this.getMovies(authData.token);
+    this.getFavorites(authData.token, authData.user.username);
   }
 
   onLogout() {
@@ -81,11 +83,22 @@ class MainView extends Component {
 
   toggleFavoritedMovie(id) {
     if (this.state.favorites.includes(id)) {
+      // Do a DELETE request to the backend
+      axios.delete(
+        process.env.API_URI + `/users/${this.state.user}/favorites/${id}`,
+        {}
+      );
+
       // remove movie from favorites list
       this.setState({
         favorites: this.state.favorites.filter((x) => x !== id),
       });
     } else {
+      // Do a POST request to the backend
+      axios.post(
+        process.env.API_URI + `/users/${this.state.user}/favorites/${id}`,
+        {}
+      );
       // add movie to favorites
       this.setState({
         favorites: [...this.state.favorites, id],
@@ -93,15 +106,16 @@ class MainView extends Component {
     }
   }
 
-  // getFavorites(token, user) {
-  //   axios.get(`https://i-flix.herokuapp.com/users/${user}/favorites`, {
-  //     headers: { Authorization: `Bearer ${token}` }
-  //   })
-  //   .then(response => {
-  //     this.setState({ favorites: response.data})
-  //     this.props.setFavorites(response.data)
-  //   })
-  // }
+  getFavorites(token, user) {
+    axios
+      .get(`${process.env.API_URI}/users/${user}/favorites`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        this.setState({ favorites: response.data });
+        // this.props.setFavorites(response.data)
+      });
+  }
 
   render() {
     const { movies } = this.props;

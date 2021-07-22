@@ -15,7 +15,7 @@ export default class MovieCard extends Component {
             <Card.Img
               variant="top"
               src={movie.imageUrl}
-              className="movie-card__image image-sponsive w-100"
+              className="movie-card__image"
             />
           </Link>
         </Card>

@@ -1,15 +1,32 @@
 .favorites-view {
   color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 90vh;
   width: 100%;
   margin: 0 auto;
+  padding-top: 11rem;
 }
 
 .favorites-view__card {
   background-color: rgba(0, 0, 0, 0.7);
-  height: auto;
-  padding: 3rem;
+  border-radius: 5px;
+  height: 100%;
+  margin-bottom: 5rem;
+}
+
+.favorite-list-container,
+.no-favorites-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.favorite-list-container > .row {
+  width: 90%;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  scroll-behavior: smooth;
+}
+
+.favorite-list-container img {
+  height: 360px;
 }
