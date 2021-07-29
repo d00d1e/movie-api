@@ -58,13 +58,16 @@ class MainView extends Component {
     this.setState({ user: authData.user.username });
     this.getMovies(authData.token);
     this.getFavorites(authData.token, authData.user.username);
+
+    // window.open("/client", "_self");
   }
 
   onLogout() {
-    this.setState({ user: null });
-
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+
+    this.setState({ user: null });
+
     window.open("/client", "_self");
   }
 
@@ -91,11 +94,12 @@ class MainView extends Component {
   }
 
   toggleFavoritedMovie(id) {
+    let accessToken = localStorage.getItem("token");
+
     if (this.state.favorites.includes(id)) {
       // Do a DELETE request to the backend
       axios.delete(
-        `${process.env.API_URI}/users/${this.state.user}/favorites/${id}`,
-        {}
+        `${process.env.API_URI}/users/${this.state.user}/favorites/${id}`
       );
 
       // remove movie from favorites list
@@ -105,8 +109,7 @@ class MainView extends Component {
     } else {
       // Do a POST request to the backend
       axios.post(
-        `${process.env.API_URI}/users/${this.state.user}/favorites/${id}`,
-        {}
+        `${process.env.API_URI}/users/${this.state.user}/favorites/${id}`
       );
       // add movie to favorites
       this.setState({
@@ -143,7 +146,12 @@ class MainView extends Component {
           <Route
             exact
             path="/users"
-            render={() => <ProfileView movies={movies} />}
+            render={() => (
+              <ProfileView
+                movies={movies}
+                onLoggedIn={(user) => this.onLoggedIn(user)}
+              />
+            )}
           />
           <Route exact path="/register" render={() => <RegistrationView />} />
           <Route

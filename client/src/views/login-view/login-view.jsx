@@ -14,7 +14,7 @@ export default function LoginView(props) {
     e.preventDefault();
     /* Send a request to the server for authentication */
     axios
-      .post(process.env.API_URI + "/login", {
+      .post(`${process.env.API_URI}/login`, {
         username: username,
         password: password,
       })
@@ -38,6 +38,7 @@ export default function LoginView(props) {
             placeholder="Enter username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            autoComplete="on"
           />
         </Form.Group>
 
@@ -48,6 +49,7 @@ export default function LoginView(props) {
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            autoComplete="current-password"
           />
         </Form.Group>
 

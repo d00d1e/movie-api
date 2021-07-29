@@ -21,12 +21,14 @@
 }
 
 .favorite-list-container > .row {
-  width: 90%;
+  width: 87%;
   overflow-x: auto;
   flex-wrap: nowrap;
   scroll-behavior: smooth;
 }
 
 .favorite-list-container img {
-  height: 360px;
+  height: 380px;
+  width: 260px;
+  border-radius: 5px;
 }

@@ -9,20 +9,20 @@ export default function RegistrationView() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [dob, setDob] = useState("");
+  const [birthday, setBirthday] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const createdUser = {
-      Username: username,
-      Password: password,
-      Email: email,
-      Birthday: dob,
+      username: username,
+      password: password,
+      email: email,
+      birthday: birthday,
     };
 
     axios
-      .post(process.env.API_URI + "/users", createdUser)
+      .post(`${process.env.API_URI}/users/`, createdUser)
       .then((response) => {
         // console.log(response);
         // console.log(response.data);
@@ -72,10 +72,10 @@ export default function RegistrationView() {
         <Form.Group controlId="formBasicDate">
           <Form.Label>Date of Birth</Form.Label>
           <Form.Control
-            type="date"
-            value={dob}
+            type="text"
+            value={birthday}
             placeholder="MM/DD/YYYY"
-            onChange={(e) => setDob(e.target.value)}
+            onChange={(e) => setBirthday(e.target.value)}
           />
         </Form.Group>
 

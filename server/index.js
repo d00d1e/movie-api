@@ -231,7 +231,7 @@ app.put(
       {
         $set: {
           username: req.body.username,
-          password: req.body.password,
+          // password: req.body.password,
           email: req.body.email,
           birthday: req.body.birthday,
         },
@@ -248,7 +248,7 @@ app.put(
   }
 );
 
-app.get("/users/:username/favorites/", (req, res) => {
+app.get("/users/:username/favorites", (req, res) => {
   Users.findOne({ username: req.params.username })
     .then((user) => {
       res.status(200).json(user.favorites);

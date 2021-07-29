@@ -24,17 +24,17 @@ export default function FavoritesView({ favorites }) {
 
           {favorites.length > 0 ? (
             <Container fluid className="favorite-list-container">
-              <Button className="mr-4" onClick={() => handleScroll(-298)}>
+              <Button className="mr-4" onClick={() => handleScroll(-299)}>
                 <i className="fas fa-chevron-left"></i>
               </Button>
               <Row ref={scrollContainer}>
                 {favorites.map((movie) => (
-                  <Col key={movie._id} md={6} lg={4}>
+                  <Col key={movie._id} xl={4}>
                     <MovieCard movie={movie} />
                   </Col>
                 ))}
               </Row>
-              <Button className="ml-4" onClick={() => handleScroll(298)}>
+              <Button className="ml-4" onClick={() => handleScroll(299)}>
                 <i className="fas fa-chevron-right"></i>
               </Button>
             </Container>
