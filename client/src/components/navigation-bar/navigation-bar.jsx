@@ -1,13 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button, Navbar } from "react-bootstrap";
 
 import "./navigation-bar.scss";
 
 export default function NavigationBar({ user, onLogout }) {
-  function handleLogout() {
+  const location = useLocation();
+
+  const handleLogout = () => {
     onLogout();
-  }
+  };
 
   return (
     <div>
@@ -29,16 +31,20 @@ export default function NavigationBar({ user, onLogout }) {
         <Navbar.Collapse className="justify-content-end" id="basic-navbar-nav">
           {!user ? (
             <ul>
-              <Link to={`/`}>
-                <Button variant="link" className="navbar__button">
-                  Login
-                </Button>
-              </Link>
-              <Link to={`/register`}>
-                <Button variant="link" className="navbar__button">
-                  Register
-                </Button>
-              </Link>
+              {location.pathname === "/" && (
+                <Link to={`/register`}>
+                  <Button variant="link" className="navbar__button">
+                    Sign Up
+                  </Button>
+                </Link>
+              )}
+              {location.pathname === "/register" && (
+                <Link to={`/`}>
+                  <Button variant="link" className="navbar__button">
+                    Login
+                  </Button>
+                </Link>
+              )}
             </ul>
           ) : (
             <ul>
